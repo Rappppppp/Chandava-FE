@@ -1,0 +1,40 @@
+
+@font-face {
+    font-family: "Poppins";
+    src: url("/fonts/Poppins/Poppins-Regular.ttf");
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "Poppins";
+    src: url("/fonts/Poppins/Poppins-Bold.ttf");
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "Poppins";
+    src: url("/fonts/Poppins/Poppins-ExtraBold.ttf");
+    font-weight: 800;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "WaterBrush";
+    src: url("/fonts/WaterBrush/WaterBrush-Regular.ttf");
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  @theme {
+    --font-poppins: "Poppins", "sans-serif"; 
+    --font-water-brush: "WaterBrush", "sans-serif"; 
+  
+  }
+  
+  
+  /* Apply globally */
+  body {
+    font-family: "Poppins", sans-serif;
+  }

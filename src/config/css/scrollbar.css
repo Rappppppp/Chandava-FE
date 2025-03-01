@@ -1,0 +1,39 @@
+
+/* Default: Hide Scrollbar */
+.scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hidden {
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+/* Custom Scrollbar (Visible When Class is Applied) */
+.scrollbar-show::-webkit-scrollbar {
+    width: 5px;
+    /* Adjust width */
+    height: 5px;
+    /* For horizontal scrolling */
+}
+
+/* Scrollbar Track */
+.scrollbar-show::-webkit-scrollbar-track {
+    background: #f3f4f6;
+    /* Light gray */
+    border-radius: 8px;
+}
+
+/* Scrollbar Thumb */
+.scrollbar-show::-webkit-scrollbar-thumb {
+    background: #6b7280;
+    /* Dark gray */
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+/* Scrollbar Thumb on Hover */
+.scrollbar-show::-webkit-scrollbar-thumb:hover {
+    background: #4b5563;
+    /* Darker on hover */
+}
