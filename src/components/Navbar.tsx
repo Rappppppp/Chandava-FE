@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Icon from "@components/Icon";
 
-const navLinks = ["Home", "Feedback", "About", "Accommodations", "Contact Us"];
+const navLinks = ["Home", "Feedback", "About", "Accommodations", "Pricing", "Contact Us"];
 
 const Navbar = () => {
     const [isOpenSideNavigation, setIsOpenSideNavigation] = useState<boolean>(false);
