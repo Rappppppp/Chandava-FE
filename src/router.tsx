@@ -4,6 +4,7 @@ import MainLayout from "@layouts/MainLayout";
 
 // Lazy load pages
 const LandingPage = lazy(() => import("@pages/LandingPage"));
+const RoomDetails = lazy(() => import("@pages/RoomDetails"));
 
 
 export const router = createBrowserRouter([
@@ -12,9 +13,11 @@ export const router = createBrowserRouter([
     path: "/",
     element: <MainLayout />,
     children: [
-      { path: "", element: <LandingPage /> }, 
+      { path: "", element: <LandingPage /> },
+      { path: "/:roomId", element: <RoomDetails /> },
+
     ],
   },
-  
+
   { path: "*", element: <div>404</div> },
 ]);

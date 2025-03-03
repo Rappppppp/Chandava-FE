@@ -8,7 +8,7 @@ const FeedbackCard = () => {
                     <Icon name="User" size={30} color="white" />
                 </div>
                 <div>
-                    <p>Angelo Bergado</p>
+                    <p>Customers name here</p>
                     <p className="text-xs text-gray-500">
                         March 1, 2025
                     </p>

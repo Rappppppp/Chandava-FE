@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Icon from "@components/Icon";
 
 const navLinks = ["Home", "Feedback", "About", "Accommodations", "Pricing", "Contact Us"];
@@ -23,7 +24,7 @@ const Navbar = () => {
     return (
         <nav className=" sticky top-0 bg-white py-10 flex justify-between items-center z-40">
             <div className="flex items-center gap-8">
-                <h1 className="text-4xl/0 lg:text-5xl/0 text-primary font-water-brush">Chandava</h1>
+                <Link to="/"><h1 className="text-4xl/0 lg:text-5xl/0 text-primary font-water-brush">Chandava</h1></Link>
                 <NavLinks className="hidden lg:flex gap-5" />
             </div>
 
