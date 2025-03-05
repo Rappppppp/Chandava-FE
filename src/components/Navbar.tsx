@@ -55,9 +55,9 @@ const Navbar = () => {
                 <div className="flex-1 flex flex-col gap-4 items-center justify-center w-full h-full">
                     <NavLinks className="flex flex-col gap-6" />
                     <div className="relative group">
-                        <p className="cursor-pointer transition-colors duration-300 text-black group-hover:text-primary">
+                        <Link to="/registration" className="cursor-pointer transition-colors duration-300 text-black group-hover:text-primary">
                             Sign up
-                        </p>
+                        </Link>
                         <span className="absolute left-1/2 -bottom-1 h-[0.125rem] w-0 bg-primary transition-all duration-300 ease-in-out transform -translate-x-1/2 group-hover:w-full"></span>
                     </div>
                 </div>
@@ -83,12 +83,12 @@ const NavLinks = ({ className }: { className?: string }) => (
 // ✅ Authentication Buttons (Signup & Login)
 const AuthButtons = ({ className }: { className?: string }) => (
     <div className={`flex gap-4 `}>
-        <button className={`border border-primary py-2 px-7 rounded-full text-primary transition-all duration-300 hover:bg-primary hover:text-white cursor-pointer ${className}`}>
+        <Link to="/registration" className={`border border-primary py-2 px-7 rounded-full text-primary transition-all duration-300 hover:bg-primary hover:text-white cursor-pointer ${className}`}>
             Signup
-        </button>
-        <button className="bg-primary py-2 px-7 rounded-full text-white transition-all duration-300 hover:bg-primary/80 cursor-pointer">
+        </Link>
+        <Link to="login" className="bg-primary py-2 px-7 rounded-full text-white transition-all duration-300 hover:bg-primary/80 cursor-pointer">
             Login
-        </button>
+        </Link>
     </div>
 );
 
