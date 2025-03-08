@@ -1,0 +1,57 @@
+import { useState, ChangeEvent } from "react";
+
+interface Field<T> {
+  value: T;
+  required?: boolean;
+  minLength?: number;
+  maxLength?: number;
+  email?: boolean;
+  numbers?: boolean;
+  letters?: boolean;
+}
+
+type FormState<T> = {
+  [K in keyof T]: Field<T[K]>;
+};
+
+type Errors<T> = { [K in keyof T]?: string };
+
+export const useInput = <T extends Record<string, any>>(initialState: FormState<T>) => {
+  const [values, setValues] = useState(initialState);
+  const [errors, setErrors] = useState<Errors<T>>({});
+
+  const validateField = (name: keyof T, field: Field<any>) => {
+    const value = field.value.toString().trim();
+    let errorMessage = "";
+
+    const rules = {
+      required: () => !value && "This field is required.",
+      numbers: () => field.numbers && !/^\d+$/.test(value) && "Only numbers are allowed.",
+      letters: () => field.letters && !/^[A-Za-z\s]+$/.test(value) && "Only letters are allowed.",
+      minLength: () => field.minLength && value.length < field.minLength && `Must be at least ${field.minLength} characters.`,
+      maxLength: () => field.maxLength && value.length > field.maxLength && `Must be at most ${field.maxLength} characters.`,
+      email: () => field.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) && "Invalid email format.",
+      confirmPassword: () => name === "confirm_password" && value !== values.password.value && "Passwords do not match."
+    };
+
+    for (const rule in rules) {
+      const result = rules[rule as keyof typeof rules]?.();
+      if (result) {
+        errorMessage = result;
+        break; // Stop checking after the first validation failure
+      }
+    }
+
+    setErrors((prev) => ({ ...prev, [name]: errorMessage }));
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setValues((prev) => ({ ...prev, [name]: { ...prev[name], value } }));
+    validateField(name as keyof T, { ...values[name], value });
+  };
+
+  const isValid = () => Object.values(errors).every((error) => !error);
+
+  return { values, handleChange, errors, isValid, setValues }; // ✅ Now includes `setValues`
+};

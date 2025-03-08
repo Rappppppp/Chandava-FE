@@ -6,11 +6,16 @@ interface InputProps {
     name: string;
     label: string;
     type?: string;
+    required?: boolean;
+    value: string;
+    error?: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    
 
 }
 
 
-const input = ({ icon, name, label, type = "text" }: InputProps) => {
+const Input = ({ icon, name, label, type = "text", value, onChange, error }: InputProps) => {
     return (
 
         <div className="relative mb-3">
@@ -21,9 +26,13 @@ const input = ({ icon, name, label, type = "text" }: InputProps) => {
                     type={type}
                     id={name}
                     name={name}
+                    value={value}
+                    onChange={onChange}
                     className="appearance-none bg-transparent border-none outline-none p-0 m-0 w-full"
                 />
             </div>
+            {error && <p className="text-red-500 mt-2 text-sm">{error}</p>}
+            
 
         </div>
 
@@ -31,4 +40,4 @@ const input = ({ icon, name, label, type = "text" }: InputProps) => {
     );
 }
 
-export default input;
+export default Input;

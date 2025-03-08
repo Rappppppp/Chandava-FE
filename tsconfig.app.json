@@ -25,16 +25,19 @@
 
     "baseUrl": "./",
     "paths": {
+      "@/*": ["src/*"],
       "@components/*": ["src/components/*"],
+      "@contexts/*": ["src/contexts/*"],
       "@pages/*": ["src/pages/*"],
       "@config/*": ["src/config/*"],
       "@hooks/*": ["src/hooks/*"],
       "@utils/*": ["src/utils/*"],
       "@services/*": ["src/services/*"],
-      "@contexts/*": ["src/contexts/*"],
       "@assets/*": ["src/assets/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@features/*": ["src/features/*"]
+      "@features/*": ["src/features/*"],
+      "@types/*": ["src/types/*"]
+
 
 
     }
