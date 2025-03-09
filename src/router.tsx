@@ -1,12 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
+import { AuthProvider } from "@contexts/AuthContext";
 
 import { lazy } from "react";
 import MainLayout from "@layouts/MainLayout";
 import PrivateRoute from "@layouts/PrivateRoute";
+import UserLayout from "@layouts/UserLayout";
 
 // auth
 const LoginPage = lazy(() => import("@pages/Auth/LoginPage"));
 const RegistrationPage = lazy(() => import("@pages/Auth/RegistrationPage"));
+const Unauthorized = lazy(() => import("@pages/Auth/Unauthorized"));
+
 
 
 // Lazy load pages
@@ -35,11 +39,13 @@ export const router = createBrowserRouter([
     element: <RegistrationPage />,
   },
 
-
-
   {
     path: "/unauthorized",
-    element: <div>Unauthorized</div>,
+    element: (
+      <AuthProvider>
+        <Unauthorized />
+      </AuthProvider>
+    ),
   },
 
 
@@ -47,8 +53,12 @@ export const router = createBrowserRouter([
     path: "/users",
     element: <PrivateRoute allowedRoles={["user"]} />,
     children: [
-      { path: "", element: <div>User Homepage</div> },
-      { path: "room/:roomId", element: <div>User Room Details</div> },
+      {
+        element: <UserLayout />,
+        children: [
+          { path: "", element: <div>Hellooo layout</div> }
+        ]
+      }
     ],
   },
 

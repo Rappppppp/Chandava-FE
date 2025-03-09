@@ -1,13 +1,17 @@
-import AuthBackground from "@assets/images/login-bg.jpg"
+import { useState } from "react"
+import AuthBackground from "@assets/images/hero-bg.jpg"
 import Logo from "@assets/logo/logo.jpg"
 import Input from "@features/auth/components/Input"
 import { useInput } from "@hooks/useInput"
 import { login } from "@features/auth/services/auth"
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom"
+import toast from "react-hot-toast"
+import Spinner from "@components/Spinner"
 
 
 const LoginPage = () => {
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const navigate = useNavigate();
 
     const { values, handleChange, errors, isValid } = useInput({
@@ -19,19 +23,20 @@ const LoginPage = () => {
         e.preventDefault();
         if (!isValid()) return;
 
-        const response = await login(values.email.value, values.password.value);
-        if (response.success) {
-            console.log(response.response.token);
-            localStorage.setItem("token", response.response.token);
-            if(response.response.role === "admin"){
-                navigate("/admin");
-            }else{
-                navigate("/users");
-            }
-        } else {
-            console.log(response.message)
-        }
+        setIsLoading(true)
 
+        const response = await login(values.email.value, values.password.value);
+        if (!response.success) {
+            toast.error(response.message)
+            setIsLoading(false)
+            return;
+        }
+        localStorage.setItem("token", response.response.token);
+        if (response.response.role === "admin") {
+            navigate("/admin");
+        } else {
+            navigate("/users");
+        }
     };
 
 
@@ -82,7 +87,13 @@ const LoginPage = () => {
                         required />
 
                     <div className="mt-5">
-                        <button type="submit" className="border border-white/30 disabled:bg-white/10 disabled:cursor-not-allowed hover:bg-white/10 transition-all w-full py-3 rounded-2xl font-bold cursor-pointer">Login</button>
+                        <button type="submit" className="border border-white/30 disabled:bg-white/10 disabled:cursor-not-allowed hover:bg-white/10 transition-all w-full py-3 rounded-2xl font-bold cursor-pointer" disabled={isLoading}>
+                            {
+                                isLoading ? (
+                                    <Spinner />
+                                ) : "Login"
+                            }
+                        </button>
                     </div>
 
                     <div className="mt-5 text-center">

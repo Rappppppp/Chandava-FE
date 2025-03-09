@@ -15,7 +15,7 @@ interface InputProps {
 }
 
 
-const Input = ({ icon, name, label, type = "text", value, onChange, error }: InputProps) => {
+const Input = ({ icon, name, label, type = "text", value, onChange, error, required = false }: InputProps) => {
     return (
 
         <div className="relative mb-3">
@@ -29,6 +29,7 @@ const Input = ({ icon, name, label, type = "text", value, onChange, error }: Inp
                     value={value}
                     onChange={onChange}
                     className="appearance-none bg-transparent border-none outline-none p-0 m-0 w-full"
+                    required={required}
                 />
             </div>
             {error && <p className="text-red-500 mt-2 text-sm">{error}</p>}

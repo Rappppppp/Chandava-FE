@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import request from "@services/api"; // Axios API instance
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 import { ApiResponse } from "@/types/apiTypes";
 
@@ -20,6 +21,7 @@ interface AuthContextType {
   user: User | null;
   loading: boolean;
   logout: () => void;
+  logoutLoading: boolean;
 }
 
 // Create Context
@@ -30,6 +32,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [logoutLoading, setLogoutLoading] = useState(false);
 
 
   useEffect(() => {
@@ -39,9 +42,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           method: "GET",
           url: "/auth/me",
         });
-        setUser(response.data.data); 
+        setUser(response.data.data);
       } catch (error) {
         setUser(null);
+
       } finally {
         setLoading(false);
       }
@@ -53,14 +57,30 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 
   const logout = async () => {
-    localStorage.removeItem("token");
-    setUser(null);
-    navigate("/login");
+    try {
+      setLogoutLoading(true);
+
+      await request<ApiResponse<unknown>>({
+        method: "POST",
+        url: "/auth/logout",
+      });
+
+      localStorage.removeItem("token");
+      setUser(null);
+      navigate("/login");
+
+
+    } catch (error) {
+      toast.error("Logout failed");
+    } finally {
+      setLogoutLoading(false);
+    }
+
 
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, logout }}>
+    <AuthContext.Provider value={{ user, loading, logout, logoutLoading }}>
       {children}
     </AuthContext.Provider>
   );

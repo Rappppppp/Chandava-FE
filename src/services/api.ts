@@ -29,17 +29,15 @@ api.interceptors.request.use(
 );
 
 // Response Interceptor
-api.interceptors.response.use(
-  (response: AxiosResponse) => response,
-  (error: AxiosError) => {
-    if (error.response?.status === 401) {
-      console.error("Unauthorized: Redirecting to login...");
-      localStorage.removeItem("token");
-      window.location.href = "/login"; // Redirect to login on 401
-    }
-    return Promise.reject(error);
-  }
-);
+// api.interceptors.response.use(
+//   (response: AxiosResponse) => response,
+//   (error: AxiosError) => {
+//     if (error.response?.status === 401) {
+//       localStorage.removeItem("token");
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 // Generic API request handler
 const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
@@ -48,7 +46,6 @@ const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError;
-    console.error("API Error:", axiosError.response?.data || axiosError.message);
     throw axiosError;
   }
 };

@@ -1,12 +1,12 @@
 import { useState } from "react"
-import AuthBackground from "@assets/images/login-bg.jpg"
+import AuthBackground from "@assets/images/hero-bg.jpg"
 import Logo from "@assets/logo/logo.jpg"
 import Input from "@features/auth/components/Input"
 import { useInput } from "@hooks/useInput"
 import { register } from "@features/auth/services/auth"
-import Icon from "@components/Icon"
 import toast from "react-hot-toast"
 import { Link } from "react-router-dom"
+import Spinner from "@components/Spinner"
 
 
 const RegistrationPage = () => {
@@ -178,11 +178,7 @@ const RegistrationPage = () => {
 
                             {
                                 isLoading ? (
-                                    <div className="flex items-center justify-center">
-                                        <div className="animate-spin">
-                                            <Icon name="LoaderCircle" size={20} color="#fff" />
-                                        </div>
-                                    </div>
+                                    <Spinner />
                                 ) : "Register"
                             }
 

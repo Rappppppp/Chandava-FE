@@ -17,7 +17,7 @@ const ProtectedContent = ({ allowedRoles }: PrivateRouteProps) => {
   const { user, loading } = useAuth();
 
   if (loading) return <p>Loading...</p>;
-  if (!user) return <Navigate to="/login" replace />;
+  if (!user) return <Navigate to="/" replace />;
 
   // ✅ Role-based access control
   if (allowedRoles && !allowedRoles.includes(user.role)) {
