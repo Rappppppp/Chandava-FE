@@ -5,6 +5,7 @@ import { lazy } from "react";
 import MainLayout from "@layouts/MainLayout";
 import PrivateRoute from "@layouts/PrivateRoute";
 import UserLayout from "@layouts/UserLayout";
+import AdminLayout from "@layouts/AdminLayout";
 
 // auth
 const LoginPage = lazy(() => import("@pages/Auth/LoginPage"));
@@ -16,6 +17,18 @@ const Unauthorized = lazy(() => import("@pages/Auth/Unauthorized"));
 // Lazy load pages
 const LandingPage = lazy(() => import("@pages/LandingPage"));
 const RoomDetails = lazy(() => import("@pages/RoomDetails"));
+
+
+const UserHomePage = lazy(() => import("@pages/users/UserHomePage"));
+const UserBookingPage = lazy(() => import("@pages/users/UserBookingPage"));
+const UserFavoritePage = lazy(() => import("@pages/users/UserFavoritesPage"));
+const UserFeedbackPage = lazy(() => import("@pages/users/UserFeedbackPage"));
+const UserCouponPage = lazy(() => import("@pages/users/UserCouponPage"));
+
+
+const Dashboard = lazy(() => import("@pages/admin/Dashboard"));
+const ManageRooms = lazy(() => import("@pages/admin/ManageRooms"));
+const Messages = lazy(() => import("@pages/admin/Messages"));
 
 
 
@@ -56,7 +69,14 @@ export const router = createBrowserRouter([
       {
         element: <UserLayout />,
         children: [
-          { path: "", element: <div>Hellooo layout</div> }
+          { path: "home", element: <UserHomePage /> },
+          { path: "room/:roomId", element: <RoomDetails /> },
+          { path: "bookings", element: <UserBookingPage /> },
+          { path: "favorites", element: <UserFavoritePage /> },
+          { path: "feedbacks", element: <UserFeedbackPage /> },
+          { path: "coupons", element: <UserCouponPage /> },
+
+
         ]
       }
     ],
@@ -66,8 +86,24 @@ export const router = createBrowserRouter([
     path: "/admin",
     element: <PrivateRoute allowedRoles={["admin"]} />,
     children: [
-      { path: "", element: <div>admin Homepage</div> },
-      { path: "room/:roomId", element: <div>admin Room Details</div> },
+      {
+        element: <AdminLayout />,
+        children: [
+          { path: "dashboard", element: <Dashboard /> },
+          { path: "accommodations", element: <ManageRooms /> },
+          { path: "bookings", element: <div>Admin bookings</div> },
+          { path: "customers", element: <div>Admin customers</div> },
+          { path: "analytics", element: <div>Admin analytics</div> },
+          { path: "messages", element: <Messages /> },
+          { path: "settings", element: <div>Admin settings</div> },
+
+
+
+
+
+
+        ]
+      }
     ],
   },
 

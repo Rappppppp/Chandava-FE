@@ -1,13 +1,19 @@
 
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import RoomImages from "@features/roomdetails/components/RoomImages";
 import RoomPricing from "@features/roomdetails/components/RoomPricing";
 import Title from "@components/Title";
 import Icon from "@components/Icon";
 
+
 const RoomDetails = () => {
     const { roomId } = useParams();
     console.log(roomId);
+    const location = useLocation();
+    const isUsersPage = location.pathname.split("/")[1] === "users";
+    console.log(isUsersPage);
+
+    
 
 
 
@@ -16,7 +22,9 @@ const RoomDetails = () => {
 
             <div className="flex flex-col md:flex-row gap-5">
                 <RoomImages />
-                <RoomPricing />
+                <RoomPricing isAuthPage={isUsersPage} />
+
+           
 
             </div>
 

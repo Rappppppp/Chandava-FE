@@ -9,7 +9,16 @@ import { ConfirmModal } from "@components/Modal";
 
 
 
-const navLinks = ["Home", "Bookings", "Favorites", "Feedbacks", "Coupons"];
+// const navLinks = ["Home", "Bookings", "Favorites", "Feedbacks", "Coupons"];
+const navLinks = [
+    { label: "Home", link: "home" },
+    { label: "Bookings", link: "bookings" },
+    { label: "Favorites", link: "favorites" },
+    { label: "Feedbacks", link: "feedbacks" },
+    { label: "Coupons", link: "coupons" },
+
+
+]
 
 const Navbar = () => {
     const { user, logout, logoutLoading } = useAuth();
@@ -45,7 +54,7 @@ const Navbar = () => {
 
             </ConfirmModal>
             <div className="flex items-center gap-8">
-                <Link to="/users"><h1 className="text-4xl/0 lg:text-5xl/0 text-primary font-water-brush">Chandava</h1></Link>
+                <Link to="/users/home"><h1 className="text-4xl/0 lg:text-5xl/0 text-primary font-water-brush">Chandava</h1></Link>
                 <NavLinks className="hidden lg:flex gap-5" />
             </div>
 
@@ -90,11 +99,11 @@ const Navbar = () => {
 // ✅ Navigation Links Component
 const NavLinks = ({ className }: { className?: string }) => (
     <div className={`flex items-center ${className}`}>
-        {navLinks.map((link, index) => (
+        {navLinks.map((nav, index) => (
             <div key={index} className="relative group">
-                <p className="cursor-pointer transition-colors duration-300 text-black group-hover:text-primary">
-                    {link}
-                </p>
+                <Link to={`/users/${nav.link}`} className="cursor-pointer transition-colors duration-300 text-black group-hover:text-primary">
+                    {nav.label}
+                </Link>
                 <span className="absolute left-1/2 -bottom-1 h-[0.125rem] w-0 bg-primary transition-all duration-300 ease-in-out transform -translate-x-1/2 group-hover:w-full"></span>
             </div>
         ))}
@@ -131,7 +140,7 @@ const AuthButtons = ({ first_name, setOpenLogoutModal }: { first_name?: string, 
                                 anchor="bottom"
                                 className="flex origin-top flex-col z-50 overflow-hidden"
                             >
-                                <div className="border border-gray-200 rounded-lg mt-2 p-1 flex flex-col gap-1">
+                                <div className="border border-gray-200 rounded-lg mt-2 p-1 flex flex-col gap-1 bg-white">
                                     <div className="flex items-center justify-start gap-3 hover:bg-gray-100 rounded-2xl pr-14 pl-3 py-3 transition-all duration-500 cursor-pointer">
                                         <div className="w-7 h-7 rounded-xl flex items-center justify-center bg-red-400">
                                             <Icon name="Settings" size={20} color="#fff" />

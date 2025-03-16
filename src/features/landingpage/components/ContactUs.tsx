@@ -15,7 +15,7 @@ const ContactUs: FC = () => {
     return (
 
 
-        <div className="flex flex-col-reverse md:flex-row gap-3 md:gap-5">
+        <div className="flex flex-col-reverse md:flex-row gap-3 md:gap-5" id="Contact Us">
             <div className="w-full md:w-1/2 ">
                 <div className="w-full relative">
                     <div className="aspect-video w-full bg-primary rounded-4xl overflow-hidden">

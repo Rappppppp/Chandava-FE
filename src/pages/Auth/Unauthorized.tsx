@@ -15,7 +15,7 @@ const Unauthorized = () => {
       <p className="text-gray-600">You don't have permission to access this page.</p>
       <button
         className="mt-4 px-5 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600"
-        onClick={() => navigate(user?.role === "admin" ? "/admin" : "/users", { replace: true })}
+        onClick={() => navigate(user?.role === "admin" ? "/admin/dashboard" : "/users/home", { replace: true })}
       >
         Go Back
       </button>

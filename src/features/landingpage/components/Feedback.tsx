@@ -7,7 +7,7 @@ import StaticDB  from "@config/static_db/StaticDB";
 const Feedback = () => {
     const { customersFeedback } = StaticDB;
     return (
-        <div className="flex flex-col md:flex-row gap-3 md:gap-5">
+        <div className="flex flex-col md:flex-row gap-3 md:gap-5" id="Feedback">
 
             <div className="w-full md:w-1/2 lg:w-1/3 ">
                 <Title title={customersFeedback.title} />

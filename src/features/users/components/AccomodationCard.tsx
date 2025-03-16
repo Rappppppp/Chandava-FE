@@ -4,7 +4,7 @@ import Icon from "@components/Icon";
 import { Link } from "react-router-dom";
 const AccomodationCard = () => {
     return (
-        <Link to="/room/123">
+        <Link to="/users/room/123" className="min-w-[16rem] md:min-w-96">
             <div className=" shadow-md rounded-4xl overflow-hidden">
                 <div className="bg-black relative rounded-4xl">
                     <img src={SampleRoom} alt="Room name" className="w-full aspect-video  object-cover rounded-4xl opacity-65" />

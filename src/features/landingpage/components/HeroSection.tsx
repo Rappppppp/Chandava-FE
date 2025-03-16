@@ -4,6 +4,7 @@ const HeroSection = () => {
     return (
 
         <div
+            id="Home"
             style={{ backgroundImage: `url(${HeroBg})` }}
             className="w-full flex flex-col  items-center justify-center bg-black h-[50vh] lg:h-[60vh] xl:h-[70vh] rounded-4xl lg:rounded-[2.125rem] text-white ">
             <h1 className="font-water-brush text-[3rem]/10 md:text-[4rem]/15 lg:text-[5rem]/20 xl:text-[6rem]/20 text-center ">Chandava</h1>

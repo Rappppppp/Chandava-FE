@@ -1,6 +1,6 @@
 import Paragraph from "@components/Paragraph";
 
-const RoomPricing = () => {
+const RoomPricing = ({isAuthPage = false} : {isAuthPage: boolean}) => {
     return (
         <div className="w-full md:1/2">
             <div className="flex justify-between mb-3">
@@ -36,6 +36,9 @@ const RoomPricing = () => {
 
 
             </ol>
+
+            { isAuthPage && <button className="mt-5 w-full cursor-pointer py-3 rounded-lg bg-primary text-white font-bold">Book Now</button> }
+            
 
 
 

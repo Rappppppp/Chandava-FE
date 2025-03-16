@@ -5,7 +5,7 @@ import Title from "@components/Title";
 
 const WhatCanWeOffer = () => {
     const { whatCanWeOffer } = StaticDB;
-    return (<div>
+    return (<div id="#what-can-we-offer">
 
         <div className="flex items-center justify-center ">
             <Title title="What can we offer?" />

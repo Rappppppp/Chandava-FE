@@ -11,7 +11,7 @@ const AboutUs = () => {
 
     
     return (<>
-        <div className="flex flex-col-reverse md:flex-row gap-3 md:gap-10">
+        <div className="flex flex-col-reverse md:flex-row gap-3 md:gap-10" id="About">
             <div className="w-full md:w-1/2 ">
                 <div className="w-full relative mb-5">
                     <img src={aboutUs[0].image} alt="Rest a while" className="w-full md:h-[24rem] lg:h-[26.5625rem] object-cover rounded-4xl" />

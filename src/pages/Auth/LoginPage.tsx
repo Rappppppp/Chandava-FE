@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom"
 import toast from "react-hot-toast"
 import Spinner from "@components/Spinner"
+import ScrollToTop from "@components/ScrollToTop"
 
 
 const LoginPage = () => {
@@ -33,9 +34,9 @@ const LoginPage = () => {
         }
         localStorage.setItem("token", response.response.token);
         if (response.response.role === "admin") {
-            navigate("/admin");
+            navigate("/admin/dashboard");
         } else {
-            navigate("/users");
+            navigate("/users/home");
         }
     };
 
@@ -45,6 +46,7 @@ const LoginPage = () => {
     return (
 
         <div className="relative h-screen w-screen flex flex-col lg:flex-row bg-black">
+            <ScrollToTop />
             <div
                 className="fixed inset-0 bg-black brightness-50"
                 style={{

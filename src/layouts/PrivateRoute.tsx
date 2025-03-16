@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { AuthProvider, useAuth } from "@contexts/AuthContext";
 
+
 interface PrivateRouteProps {
   allowedRoles?: string[]; // ✅ Define roles that can access this route
 }

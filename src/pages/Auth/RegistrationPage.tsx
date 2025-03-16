@@ -7,6 +7,7 @@ import { register } from "@features/auth/services/auth"
 import toast from "react-hot-toast"
 import { Link } from "react-router-dom"
 import Spinner from "@components/Spinner"
+import ScrollToTop from "@components/ScrollToTop"
 
 
 const RegistrationPage = () => {
@@ -61,6 +62,7 @@ const RegistrationPage = () => {
     return (
 
         <div className="relative h-screen w-screen flex flex-col lg:flex-row bg-black">
+            <ScrollToTop />
             <div
                 className="fixed inset-0 bg-black brightness-50"
                 style={{

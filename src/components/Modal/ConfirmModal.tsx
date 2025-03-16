@@ -49,7 +49,7 @@ const ConfirmModal = ({
                         exit={{ opacity: 0 }}
                         className="fixed inset-0 bg-black/30"
                     />
-                    <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
+                    <div className="fixed inset-0 flex w-screen items-center justify-center p-4 ">
                         <DialogPanel
                             as={motion.div}
                             initial={{ opacity: 0, scale: 0.95 }}
@@ -59,7 +59,7 @@ const ConfirmModal = ({
                         >
                             <DialogTitle className="text-lg font-bold">{title}</DialogTitle>
                             <div className="text-gray-500">{children}</div>
-                            <div className="flex gap-4 justify-center">
+                            <div className="flex gap-4 justify-center bg-white">
                                 {closeButton && (
                                     <button
                                         className="px-5 py-2 rounded-full text-black cursor-pointer bg-gray-200 hover:bg-gray-300"

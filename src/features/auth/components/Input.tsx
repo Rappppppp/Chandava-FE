@@ -30,6 +30,11 @@ const Input = ({ icon, name, label, type = "text", value, onChange, error, requi
                     onChange={onChange}
                     className="appearance-none bg-transparent border-none outline-none p-0 m-0 w-full"
                     required={required}
+                    style={{
+                        colorScheme: "light dark", // Ensures compatibility with both themes
+                        WebkitTextFillColor: "currentColor", // Keeps text color consistent
+                        WebkitAppearance: "none", // Resets default styling
+                      }}
                 />
             </div>
             {error && <p className="text-red-500 mt-2 text-sm">{error}</p>}
