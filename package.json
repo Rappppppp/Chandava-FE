@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && rm -rf C:/xampp/htdocs/chandava-build && mv dist C:/xampp/htdocs/chandava-build",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  // && rm -rf C:/xampp/htdocs/chandava-build && mv dist C:/xampp/htdocs/chandava-build
   "dependencies": {
     "@headlessui/react": "^2.2.0",
     "@tailwindcss/vite": "^4.0.9",
