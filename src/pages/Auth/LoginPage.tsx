@@ -3,12 +3,14 @@ import AuthBackground from "@assets/images/hero-bg.jpg"
 import Logo from "@assets/logo/logo.jpg"
 import Input from "@features/auth/components/Input"
 import { useInput } from "@hooks/useInput"
-import { login } from "@features/auth/services/auth"
+import { AuthService } from "@features/auth/services/AuthService"
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom"
 import toast from "react-hot-toast"
+import { AxiosError } from "axios"
 import Spinner from "@components/Spinner"
 import ScrollToTop from "@components/ScrollToTop"
+import axios from "axios"
 
 
 const LoginPage = () => {
@@ -24,20 +26,35 @@ const LoginPage = () => {
         e.preventDefault();
         if (!isValid()) return;
 
-        setIsLoading(true)
+        try {
+            setIsLoading(true)
 
-        const response = await login(values.email.value, values.password.value);
-        if (!response.success) {
-            toast.error(response.message)
+            await axios.get(`${import.meta.env.VITE_BE_BASE_URL}/sanctum/csrf-cookie`, {
+                withCredentials: true,
+            });
+
+            const response = await AuthService.login(values.email.value, values.password.value);
+            if(response.user.role === "admin"){
+                navigate("/admin/dashboard")
+                return;
+            }else if (response.user.role === "user"){
+                navigate("/users/home")
+                return;
+            }
+            else{
+                toast.error("Something went wrong. Please try again.")
+            }
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                toast.error(error?.response?.data.message)
+                return;
+            }
+            toast.error("Something went wrong. Please try again.")
+
+        } finally {
             setIsLoading(false)
-            return;
         }
-        localStorage.setItem("token", response.response.token);
-        if (response.response.role === "admin") {
-            navigate("/admin/dashboard");
-        } else {
-            navigate("/users/home");
-        }
+
     };
 
 

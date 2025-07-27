@@ -1,53 +1,71 @@
 import { useState } from "react";
 import Icon from "@components/Icon";
+import type { Inclusion, RoomType } from "@features/admin/accommodations/types/types";
+import { Input } from "@components/elements";
+import { useInput } from "@hooks/useInput";
 
-const AddAccommodation = () => {
+interface AddAccommodationProps {
+    inclusions: Inclusion[];
+    roomTypes: RoomType[];
+}
+
+
+
+const AddAccommodation = ({ inclusions, roomTypes }: AddAccommodationProps) => {
+
+    console.log("roomTypes", roomTypes);
+    console.log("inclusions", inclusions);
+
+    const { values, handleChange, errors, isValid } = useInput({
+        room_name: { value: "", required: true },
+        accommodation_type_id: { value: "", required: true, numbers: true },
+        description: { value: "", required: true },
+        day_night_tour_price: { value: "", required: true, numbers: true },
+        overnight_price: { value: "", required: true, numbers: true },
+        notes: { value: "", required: false },
+    });
+
+    console.log(values)
+
     const [showPredefinedInclusions, setShowPredefinedInclusions] = useState(false);
-    return (
-        <div className="border border-gray-300 rounded-xl w-full xl:w-1/2 p-5">
-            <h1 className="font-bold text-black mb-3">Add accommodation</h1>
 
-            <div className="mb-3">
+
+    return (
+        <div className="border border-gray-300 rounded-xl w-full xl:w-1/2 p-5 flex flex-col gap-y-3">
+            <h1 className="font-bold text-black ">Add accommodation</h1>
+
+            <div className="">
                 <p className="mb-2">Upload accommodation image (5 images max)</p>
                 <div className="flex flex-wrap gap-2">
                     <div className="border aspect-square w-[4.6875rem] border-gray-300 rounded-xl flex items-center justify-center">
                         <Icon name="ImageUp" size={30} color="gray" />
                     </div>
-                    {/* <div className="border aspect-square w-[4.6875rem] border-gray-300 rounded-xl flex items-center justify-center">
-                        <Icon name="ImageUp" size={30} color="gray" />
-                    </div>
-                    <div className="border aspect-square w-[4.6875rem] border-gray-300 rounded-xl flex items-center justify-center">
-                        <Icon name="ImageUp" size={30} color="gray" />
-                    </div>
-                    <div className="border aspect-square w-[4.6875rem] border-gray-300 rounded-xl flex items-center justify-center">
-                        <Icon name="ImageUp" size={30} color="gray" />
-                    </div>
-                    <div className="border aspect-square w-[4.6875rem] border-gray-300 rounded-xl flex items-center justify-center">
-                        <Icon name="ImageUp" size={30} color="gray" />
-                    </div> */}
+
                 </div>
             </div>
 
-            <div className="mb-3">
-                <label htmlFor="">Room Name</label>
-                <input
-                    type="text"
-                    placeholder="Room name"
-                    className="w-full bg-white border border-gray-300 rounded-lg outline-none shadow-none ring-0 focus:border-primary focus:ring-0 px-3 py-2" />
-            </div>
+            <Input
+                label="Room Name"
+                placeholder="Room name"
+                value={values.room_name.value}
+                onChange={handleChange}
+                error={errors.room_name}
+                required={values.room_name.required}
+            />
 
-            <div className="mb-3">
-                <label htmlFor="">Room Description</label>
-                <input
-                    type="text"
-                    placeholder="Room description"
-                    className="w-full bg-white border border-gray-300 rounded-lg outline-none shadow-none ring-0 focus:border-primary focus:ring-0 px-3 py-2" />
-            </div>
+            <Input
+                label="Room Description"
+                placeholder="Room description"
+                value={values.description.value}
+                onChange={handleChange}
+                error={errors.description}
+                required={values.description.required}
+            />
 
 
 
 
-            <div className="mb-3">
+            <div className="">
                 <label htmlFor="">Room Type</label>
                 <select
                     name=""
@@ -61,57 +79,51 @@ const AddAccommodation = () => {
 
             </div>
 
-            <div className="mb-3">
-                <label htmlFor="">Room Inclusions (separate with commas)</label>
-                <input
-                    type="text"
-                    placeholder="Room inclusions"
-                    onFocus={() => setShowPredefinedInclusions(true)}
-                    className="w-full bg-white border border-gray-300 rounded-lg outline-none shadow-none ring-0 focus:border-primary focus:ring-0 px-3 py-2" />
-            </div>
 
-            {
-                showPredefinedInclusions && <div className="mb-3">
-                    <h2 className="font-semibold text-gray-700 mb-2">Select from pre-defined inclusions</h2>
-                    <div className="space-y-2">
-                        <label className="flex items-center gap-2">
-                            <input type="checkbox" className="form-checkbox text-primary h-5 w-5" />
-                            <span className="text-gray-700">Free Breakfast</span>
-                        </label>
+            <div className="">
+                <h2 className="font-semibold text-gray-700 mb-2">Select from pre-defined inclusions</h2>
+                <div className="grid grid-cols-2 gap-2">
+                    {
+                        inclusions.map((inclusion, index) => (
+                            <label key={index} className="flex items-center gap-2">
+                                <input type="checkbox" className="form-checkbox text-primary h-5 w-5" />
+                                <span className="text-gray-700">{inclusion.inclusion_name}</span>
+                            </label>
+                        ))
+                    }
+                   
 
-                        <label className="flex items-center gap-2">
-                            <input type="checkbox" className="form-checkbox text-primary h-5 w-5" />
-                            <span className="text-gray-700">WiFi Access</span>
-                        </label>
-
-                    </div>
                 </div>
-            }
-
-            <div className="mb-3">
-                <label htmlFor="">Day/Night tour price</label>
-                <input
-                    type="text"
-                    placeholder="Day/Night tour price"
-                    className="w-full bg-white border border-gray-300 rounded-lg outline-none shadow-none ring-0 focus:border-primary focus:ring-0 px-3 py-2" />
             </div>
 
 
-            <div className="mb-3">
-                <label htmlFor="">Overnight Tour Price</label>
-                <input
-                    type="text"
-                    placeholder="Overnight Tour Price"
-                    className="w-full bg-white border border-gray-300 rounded-lg outline-none shadow-none ring-0 focus:border-primary focus:ring-0 px-3 py-2" />
-            </div>
+            <Input
+                label="Day/Night tour price"
+                placeholder="Day/Night tour price"
+                value={values.day_night_tour_price.value}
+                onChange={handleChange}
+                error={errors.day_night_tour_price}
+                required={values.day_night_tour_price.required}
+            />
 
-            <div className="mb-3">
-                <label htmlFor="">Additional Notes</label>
-                <input
-                    type="text"
-                    placeholder="Additional notes (optional)"
-                    className="w-full bg-white border border-gray-300 rounded-lg outline-none shadow-none ring-0 focus:border-primary focus:ring-0 px-3 py-2" />
-            </div>
+
+            <Input
+                label="Overnight Tour Price"
+                placeholder="Overnight Tour Price"
+                value={values.overnight_price.value}
+                onChange={handleChange}
+                error={errors.overnight_price}
+                required={values.overnight_price.required}
+            />
+
+            <Input
+                label="Additional Notes"
+                placeholder="Additional notes (optional)"
+                value={values.notes.value}
+                onChange={handleChange}
+                error={errors.notes}
+                required={values.notes.required}
+            />
 
 
 

@@ -1,9 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import request from "@services/api"; // Axios API instance
+import { AuthService } from "@features/auth/services/AuthService";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-import { ApiResponse } from "@/types/apiTypes";
 
 
 // Define User type
@@ -13,8 +12,6 @@ interface User {
   role: string;
   first_name: string;
   last_name: string;
-  iat: number;
-  exp: number;
 }
 
 interface AuthContextType {
@@ -38,11 +35,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await request<ApiResponse<User>>({
-          method: "GET",
-          url: "/auth/me",
-        });
-        setUser(response.data.data);
+        const response = await AuthService.me();
+        setUser(response.data);
       } catch (error) {
         setUser(null);
 
@@ -59,13 +53,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const logout = async () => {
     try {
       setLogoutLoading(true);
-
-      await request<ApiResponse<unknown>>({
-        method: "POST",
-        url: "/auth/logout",
-      });
-
-      localStorage.removeItem("token");
+      await AuthService.logout();
       setUser(null);
       navigate("/login");
 

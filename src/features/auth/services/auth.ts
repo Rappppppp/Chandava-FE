@@ -1,5 +1,6 @@
 import { AxiosError, request } from "@services/api";
 import { ApiResponse, SuccessResponse, ErrorResponse } from "@/types/apiTypes";
+import api from "@services/api";
 
 interface LoginResponse {
   token: string;
@@ -8,6 +9,13 @@ interface LoginResponse {
 
 interface RegisterResponse {
   message: string;
+}
+
+export const AuthService = {
+  login: async (email: string, password: string) => {
+    const response = await api.post("/login", { email, password });
+    return response.data;
+  }
 }
 
 export const login = async (

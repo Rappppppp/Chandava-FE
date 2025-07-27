@@ -36,7 +36,8 @@
       "@assets/*": ["src/assets/*"],
       "@layouts/*": ["src/layouts/*"],
       "@features/*": ["src/features/*"],
-      "@types/*": ["src/types/*"]
+      "@types/*": ["src/types/*"],
+      "@helpers/*": ["src/helpers/*"],
 
 
 

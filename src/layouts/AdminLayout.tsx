@@ -31,7 +31,7 @@ const SidebarItem = ({ name, icon, isActive, path }: SidebarItemProps) => (
 
 const navigation: { name: string; icon: keyof typeof icons; path: string }[] = [
     { name: "Dashboard", icon: "House", path: "dashboard" },
-    { name: "Accommodations", icon: "Building2", path: "accommodations" },
+    { name: "Manage Accommodations", icon: "Building2", path: "manage-accommodations" },
     { name: "Bookings", icon: "Calendar", path: "bookings" },
     { name: "Customers", icon: "Users", path: "customers" },
     { name: "Analytics", icon: "ChartSpline", path: "analytics" },

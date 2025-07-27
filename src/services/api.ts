@@ -1,48 +1,33 @@
-
-// /src/services/api/ts
-
+// /src/services/api.ts
+import { getCookie } from "@helpers/cookieHelper";
 import axios, {
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
   AxiosError,
-  InternalAxiosRequestConfig, // ✅ Import this
 } from "axios";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const api: AxiosInstance = axios.create({
-  baseURL: API_BASE_URL,
-  timeout: 10000, // 10 seconds timeout
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}/${import.meta.env.VITE_API_VERSION}`,
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
+  xsrfCookieName: "XSRF-TOKEN",       // Laravel default
+  xsrfHeaderName: "X-XSRF-TOKEN",     // Laravel expects this header
 });
 
-// ✅ FIX: Use `InternalAxiosRequestConfig` in the request interceptor
-api.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
+api.interceptors.request.use((config) => {
+  const token = getCookie("XSRF-TOKEN");
+  if (token && config.headers) {
+    config.headers["X-XSRF-TOKEN"] = decodeURIComponent(token);
+  }
+  return config;
+});
 
-// Response Interceptor
-// api.interceptors.response.use(
-//   (response: AxiosResponse) => response,
-//   (error: AxiosError) => {
-//     if (error.response?.status === 401) {
-//       localStorage.removeItem("token");
-//     }
-//     return Promise.reject(error);
-//   }
-// );
 
-// Generic API request handler
+
 const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
   try {
     const response: AxiosResponse<T> = await api.request<T>(config);
@@ -52,6 +37,7 @@ const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
     throw axiosError;
   }
 };
+
 
 export { request, AxiosError };
 export default api;

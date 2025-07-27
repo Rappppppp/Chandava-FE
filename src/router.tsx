@@ -90,7 +90,7 @@ export const router = createBrowserRouter([
         element: <AdminLayout />,
         children: [
           { path: "dashboard", element: <Dashboard /> },
-          { path: "accommodations", element: <ManageRooms /> },
+          { path: "manage-accommodations", element: <ManageRooms /> },
           { path: "bookings", element: <div>Admin bookings</div> },
           { path: "customers", element: <div>Admin customers</div> },
           { path: "analytics", element: <div>Admin analytics</div> },
