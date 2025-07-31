@@ -14,8 +14,6 @@ const ManageRooms = () => {
         fetchInclusionLoading,
     } = useAccommodationData();
 
-    console.log("roomTypes", roomTypes);
-    console.log("inclusions", inclusions);
 
 
     return (<div className="flex gap-5 flex-col xl:flex-row">

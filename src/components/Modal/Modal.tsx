@@ -1,17 +1,23 @@
-import { Description, Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
+import { Dialog, DialogPanel } from '@headlessui/react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useState } from 'react'
 
 
-const Modal = () => {
-    const [isOpen, setIsOpen] = useState(false)
+interface ModalProps {
+    isOpen: boolean;
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    children: React.ReactNode;
+    className?: string;
+}
+
+
+const Modal = ({ isOpen, setIsOpen, children, className }: ModalProps) => {
+
     return (
 
         <>
-            <button onClick={() => setIsOpen(true)}>Open dialog</button>
             <AnimatePresence>
                 {isOpen && (
-                    <Dialog static open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
+                    <Dialog static open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50 ">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -24,15 +30,9 @@ const Modal = () => {
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.95 }}
-                                className="max-w-lg space-y-4 bg-white p-12"
+                                className={`space-y-4 bg-white p-12 rounded-2xl ${className}`}
                             >
-                                <DialogTitle className="text-lg font-bold">Deactivate account</DialogTitle>
-                                <Description>This will permanently deactivate your account</Description>
-                                <p>Are you sure you want to deactivate your account? All of your data will be permanently removed.</p>
-                                <div className="flex gap-4">
-                                    <button onClick={() => setIsOpen(false)}>Cancel</button>
-                                    <button onClick={() => setIsOpen(false)}>Deactivate</button>
-                                </div>
+                                {children}
                             </DialogPanel>
                         </div>
                     </Dialog>

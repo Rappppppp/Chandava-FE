@@ -58,7 +58,7 @@ const Dashboard = () => {
           <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500">Available Accommodations</p>
+                <p className="text-sm text-gray-500">Available Rooms</p>
                 <p className="text-2xl font-semibold text-gray-800">28</p>
               </div>
               <div className="h-10 w-10 rounded-full bg-amber-100 flex items-center justify-center">

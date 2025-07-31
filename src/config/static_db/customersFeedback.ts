@@ -1,5 +1,5 @@
 export const customersFeedback = {
     "title": "Customers Feedback",
-    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
+    "description": "Hear what our valued customers have to say about their experience with our services. We take pride in delivering quality and building lasting relationships.",
   }
   

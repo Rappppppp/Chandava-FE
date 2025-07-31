@@ -3,17 +3,20 @@ interface InputProps {
     label: string;
     placeholder?: string;
     type?: string;
+    name: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     value?: string;
     error?: string;
     required?: boolean;
 }
 
-const Input = ({ label, placeholder, type = "text",onChange, value, error, required = false }: InputProps) => {
+const Input = ({ label, placeholder, type = "text", name, onChange, value, error, required = false }: InputProps) => {
     return (
         <div>
-            <label htmlFor="">{label}</label>
+            <label htmlFor={name}>{label}</label>
             <input
+                name={name}
+                id={name}
                 type={type}
                 onChange={onChange}
                 value={value}

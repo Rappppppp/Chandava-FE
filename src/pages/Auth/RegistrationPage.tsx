@@ -8,7 +8,7 @@ import toast from "react-hot-toast"
 import { Link } from "react-router-dom"
 import Spinner from "@components/Spinner"
 import ScrollToTop from "@components/ScrollToTop"
-
+import axios from "axios"
 
 const RegistrationPage = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -22,18 +22,24 @@ const RegistrationPage = () => {
         email: { value: "", required: true, email: true },
         address: { value: "", required: true, maxLength: 200 },
         password: { value: "", required: true, minLength: 8 },
-        confirm_password: { value: "", required: true, minLength: 8 }
+        password_confirmation: { value: "", required: true, minLength: 8 }
     });
+
 
 
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
         if (!isValid()) return;
         setIsLoading(true);
+        await axios.get(`${import.meta.env.VITE_BE_BASE_URL}/sanctum/csrf-cookie`, {
+            withCredentials: true,
+        });
+
         const response = await register(values);
         if (response.success) {
-            toast.success(response.response.message);
+            toast.success("Registration successful");
 
             setValues({
                 first_name: { value: "" },
@@ -44,7 +50,7 @@ const RegistrationPage = () => {
                 email: { value: "" },
                 address: { value: "" },
                 password: { value: "" },
-                confirm_password: { value: "" },
+                password_confirmation: { value: "" },
             });
 
         } else {
@@ -167,11 +173,11 @@ const RegistrationPage = () => {
                     <Input
                         icon="KeyRound"
                         type="password"
-                        name="confirm_password"
+                        name="password_confirmation"
                         label="Confirm Password"
-                        value={values.confirm_password.value}
+                        value={values.password_confirmation.value}
                         onChange={handleChange}
-                        error={errors.confirm_password}
+                        error={errors.password_confirmation}
                         required />
 
 

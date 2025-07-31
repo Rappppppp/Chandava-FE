@@ -58,7 +58,7 @@ export const register = async (formData: Record<string, { value: any }>): Promis
         email: formData.email.value,
         address: formData.address.value,
         password: formData.password.value,
-        confirm_password: formData.confirm_password.value,
+        password_confirmation: formData.password_confirmation.value,
         role: "user"
       },
     });

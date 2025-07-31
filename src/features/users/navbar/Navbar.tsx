@@ -13,9 +13,7 @@ import { ConfirmModal } from "@components/Modal";
 const navLinks = [
     { label: "Home", link: "home" },
     { label: "Bookings", link: "bookings" },
-    { label: "Favorites", link: "favorites" },
     { label: "Feedbacks", link: "feedbacks" },
-    { label: "Coupons", link: "coupons" },
 
 
 ]

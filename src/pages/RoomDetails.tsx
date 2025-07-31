@@ -1,30 +1,57 @@
-
+import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import RoomImages from "@features/roomdetails/components/RoomImages";
 import RoomPricing from "@features/roomdetails/components/RoomPricing";
 import Title from "@components/Title";
 import Icon from "@components/Icon";
+import { Accomodation } from "@/types/accomodationType";
+import api from "@services/api";
 
 
 const RoomDetails = () => {
     const { roomId } = useParams();
-    console.log(roomId);
+    const [notFound, setNotFound] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [accommodation, setAccommodation] = useState<Accomodation | null>(null);
+
     const location = useLocation();
     const isUsersPage = location.pathname.split("/")[1] === "users";
-    console.log(isUsersPage);
 
-    
 
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setNotFound(false);
+                setLoading(true);
+                const response = await api.get(`/public-rooms?id=${roomId}`);
+                if (response.data.data.length <= 0) {
+                    setNotFound(true);
+                }
+                setAccommodation(response.data.data[0]);
+
+            } catch (error) {
+                console.log(error);
+
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, [roomId]);
+
+    if (loading) return <div>Loading...</div>;
+    if (notFound) return <div>Looks like this room does not exist</div>;
 
 
     return (
         <>
 
             <div className="flex flex-col md:flex-row gap-5">
-                <RoomImages />
-                <RoomPricing isAuthPage={isUsersPage} />
+                <RoomImages accommodation={accommodation} />
+                <RoomPricing accommodation={accommodation} isAuthPage={isUsersPage} />
 
-           
+
 
             </div>
 

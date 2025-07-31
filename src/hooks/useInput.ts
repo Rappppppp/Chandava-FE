@@ -45,13 +45,50 @@ export const useInput = <T extends Record<string, any>>(initialState: FormState<
     setErrors((prev) => ({ ...prev, [name]: errorMessage }));
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setValues((prev) => ({ ...prev, [name]: { ...prev[name], value } }));
     validateField(name as keyof T, { ...values[name], value });
   };
 
+  const reset = () => {
+    setValues(initialState);
+  }
+
+  const handleArrayChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setValues((prev) => {
+      const prevField = prev[name];
+      const prevArray = Array.isArray(prevField?.value)
+        ? (prevField.value as (string | number)[])
+        : [];
+
+      const isAlreadySelected = prevArray.includes(value);
+      const updatedArray = isAlreadySelected
+        ? prevArray.filter((item) => item !== value)
+        : [...prevArray, value];
+
+      return {
+        ...prev,
+        [name]: {
+          ...prevField,
+          value: updatedArray,
+        },
+      };
+    });
+  };
   const isValid = () => Object.values(errors).every((error) => !error);
 
-  return { values, handleChange, errors, isValid, setValues }; // ✅ Now includes `setValues`
+  const getPayload = <T extends Record<string, { value: any }>>(values: T) => {
+    const payload: Record<string, any> = {};
+
+    for (const key in values) {
+      payload[key] = values[key].value;
+    }
+
+    return payload;
+  };
+
+  return { values, handleChange, errors, isValid, setValues, handleArrayChange, getPayload, reset }; // ✅ Now includes `setValues`
 };

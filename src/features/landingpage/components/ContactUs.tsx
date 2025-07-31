@@ -57,7 +57,7 @@ const ContactUs: FC = () => {
 
             <div className="w-full md:w-1/2 ">
                 <Title title="Contact Us" />
-                <Paragraph className="mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, voluptatibus, quis, doloremque, quos, temporibus, dolores, voluptas, aspernatur, repellendus</Paragraph>
+                <Paragraph className="mb-3">Send us a message and we will get back to you as soon as possible.</Paragraph>
                 <ContactUsForm />
             </div>
 
