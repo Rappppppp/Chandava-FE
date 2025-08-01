@@ -24,6 +24,7 @@ const UserBookingPage = lazy(() => import("@pages/users/UserBookingPage"));
 const UserFavoritePage = lazy(() => import("@pages/users/UserFavoritesPage"));
 const UserFeedbackPage = lazy(() => import("@pages/users/UserFeedbackPage"));
 const UserCouponPage = lazy(() => import("@pages/users/UserCouponPage"));
+const UserMessagesPage = lazy(() => import("@pages/users/UserMessagesPage"));
 
 
 const Dashboard = lazy(() => import("@pages/admin/Dashboard"));
@@ -75,6 +76,8 @@ export const router = createBrowserRouter([
           { path: "favorites", element: <UserFavoritePage /> },
           { path: "feedbacks", element: <UserFeedbackPage /> },
           { path: "coupons", element: <UserCouponPage /> },
+          { path: "messages", element: <UserMessagesPage /> },
+          { path: "messages/:convoId", element: <UserMessagesPage /> },
 
 
         ]

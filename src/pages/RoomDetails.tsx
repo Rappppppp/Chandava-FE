@@ -6,10 +6,12 @@ import Title from "@components/Title";
 import Icon from "@components/Icon";
 import { Accomodation } from "@/types/accomodationType";
 import api from "@services/api";
+import { useAuth } from "@contexts/AuthContext";
 
 
 const RoomDetails = () => {
     const { roomId } = useParams();
+    const { user } = useAuth();
     const [notFound, setNotFound] = useState(false);
     const [loading, setLoading] = useState(false);
     const [accommodation, setAccommodation] = useState<Accomodation | null>(null);
@@ -42,7 +44,7 @@ const RoomDetails = () => {
 
     if (loading) return <div>Loading...</div>;
     if (notFound) return <div>Looks like this room does not exist</div>;
-
+    if (!accommodation) return <div>Loading...</div>;
 
     return (
         <>
@@ -60,49 +62,43 @@ const RoomDetails = () => {
 
                 <div className="flex items-center justify-center flex-col">
                     <p className="text-lg font-bold text-gray-500">Overall Rating</p>
-                    <h1 className="text-[5rem]/20 font-bold text-secondary">4.3</h1>
-                    <p >Base on 163 feedbacks</p>
+
+                    {accommodation.avg_rating ? (<>
+                        <h1 className="text-[5rem]/20 font-bold text-secondary">{accommodation.avg_rating}</h1>
+                        <p >Base on {accommodation.feedbacks.length} feedbacks</p>
+                    </>) : "No feedbacks yet"}
                 </div>
 
             </div>
 
-            <div className="shadow-sm rounded-2xl  p-5 flex-col mb-3">
-                <div className="mb-3 flex items-center gap-3">
-                    <div className="aspect-square w-[3.75rem] bg-primary rounded-full flex justify-center items-center">
-                        <Icon name="User" size={30} color="white" />
-                    </div>
-                    <div>
-                        <p>Customers name here</p>
-                        <p className="text-xs text-gray-500">
-                            March 1, 2025
-                        </p>
-                    </div>
-                </div>
-                <p className="text-sm text-gray-700">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis, illo corporis ab natus
-                    reiciendis assumenda! Optio iusto iste, aliquam obcaecati placeat voluptas veniam ea odio ut
-                    earum! Perferendis, minima exercitationem?
-                </p>
-            </div>
+            {
+                accommodation.feedbacks.length > 0 && (
+                    accommodation.feedbacks.map((feedback, index) => (
+                        <div key={index} className="shadow-sm rounded-2xl  p-5 flex-col mb-3">
+                            <div className="mb-3 flex items-center gap-3">
+                                <div className="aspect-square w-[3.75rem] bg-primary rounded-full flex justify-center items-center">
+                                    <Icon name="User" size={30} color="white" />
+                                </div>
+                                <div>
+                                    <p>{String(user?.id) === String(feedback.user_id) ? "You" : feedback.user?.name} • <span className="text-sm">{feedback.rate} </span></p>
+                                    <p className="text-xs text-gray-500">
+                                        {new Date(feedback.created_at).toLocaleDateString()}
+                                    </p>
+                                </div>
+                            </div>
+                            <p className="text-sm text-gray-700">
+                                {
+                                    feedback.comment
+                                }
+                            </p>
+                        </div>
+                    ))
+                )
+            }
 
-            <div className="shadow-sm rounded-2xl  p-5 flex-col mb-3">
-                <div className="mb-3 flex items-center gap-3">
-                    <div className="aspect-square w-[3.75rem] bg-primary rounded-full flex justify-center items-center">
-                        <Icon name="User" size={30} color="white" />
-                    </div>
-                    <div>
-                        <p>Customers name here</p>
-                        <p className="text-xs text-gray-500">
-                            March 1, 2025
-                        </p>
-                    </div>
-                </div>
-                <p className="text-sm text-gray-700">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis, illo corporis ab natus
-                    reiciendis assumenda! Optio iusto iste, aliquam obcaecati placeat voluptas veniam ea odio ut
-                    earum! Perferendis, minima exercitationem?
-                </p>
-            </div>
+
+
+
 
         </>
     );

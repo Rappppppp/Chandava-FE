@@ -6,7 +6,7 @@ import { Input, FileInput, Select } from "@components/elements";
 import { useInput } from "@hooks/useInput";
 import api, { AxiosError } from "@services/api";
 import toast from "react-hot-toast";
-import {useAuth } from "@contexts/AuthContext";
+import { useAuth } from "@contexts/AuthContext";
 
 const RoomPricing = ({ isAuthPage = false, accommodation }: { isAuthPage: boolean, accommodation: Accomodation }) => {
     if (!accommodation) return <div>Loading...</div>;
@@ -54,14 +54,14 @@ const RoomPricing = ({ isAuthPage = false, accommodation }: { isAuthPage: boolea
         setLoading(true);
         const payload = getPayload(values);
         try {
-            const response = await api.post("/bookings", {
+            await api.post("/bookings", {
                 ...payload,
                 receipt: values.receipt.value[0],
                 total_price: totalPrice,
                 room_id: accommodation.id,
                 user_id: user?.id,
             });
-            
+
             toast.success("Booking successful");
             reset();
             setOpenModal(false)
@@ -123,6 +123,7 @@ const RoomPricing = ({ isAuthPage = false, accommodation }: { isAuthPage: boolea
                 className="mt-5 w-full cursor-pointer py-3 rounded-lg bg-primary text-white font-bold">Book Now</button>}
 
             <Modal isOpen={openModal} setIsOpen={setOpenModal} className="max-w-2xl">
+                <h1 className="font-bold text-2xl">Make a new booking</h1>
                 <form autoComplete="off" onSubmit={handleSubmit} className="grid grid-cols-1 gap-5">
                     <Input
                         label="Number of Guests"

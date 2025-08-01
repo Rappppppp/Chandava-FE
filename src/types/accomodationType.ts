@@ -14,6 +14,21 @@ export interface RoomImage {
     is_main_image: boolean
 }
 
+export interface Reviewer {
+    id: number,
+    name: string,
+}
+
+export interface Feedback {
+    id: number,
+    user_id: number,
+    room_id: number,
+    rate: number,
+    comment: string,
+    user: Reviewer,
+    created_at: string
+}
+
 export interface Accomodation {
     id: number,
     room_name: string,
@@ -24,7 +39,9 @@ export interface Accomodation {
     is_already_check_in: boolean,
     accommodation_type: AccomodationType,
     room_inclusions: RoomInclusions[],
-    room_images: RoomImage[]
+    room_images: RoomImage[],
+    feedbacks: Feedback[]
+    avg_rating: string | number | null
 
 }
 

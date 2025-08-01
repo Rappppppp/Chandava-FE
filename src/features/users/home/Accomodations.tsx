@@ -14,7 +14,7 @@ const Accomodations = () => {
             try {
                 setLoading(true);
                 const res = await AccommodationService.get();
-                console.log(res.data);
+
                 setAccommodations(res.data);
             } catch (error) {
                 console.log(error);
