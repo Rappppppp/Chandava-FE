@@ -139,12 +139,12 @@ const AuthButtons = ({ first_name, setOpenLogoutModal }: { first_name?: string, 
                                 className="flex origin-top flex-col z-50 overflow-hidden"
                             >
                                 <div className="border border-gray-200 rounded-lg mt-2 p-1 flex flex-col gap-1 bg-white">
-                                    <div className="flex items-center justify-start gap-3 hover:bg-gray-100 rounded-2xl pr-14 pl-3 py-3 transition-all duration-500 cursor-pointer">
+                                    {/* <div className="flex items-center justify-start gap-3 hover:bg-gray-100 rounded-2xl pr-14 pl-3 py-3 transition-all duration-500 cursor-pointer">
                                         <div className="w-7 h-7 rounded-xl flex items-center justify-center bg-red-400">
                                             <Icon name="Settings" size={20} color="#fff" />
                                         </div>
                                         <p className="text-gray-800">Settings</p>
-                                    </div>
+                                    </div> */}
                                     <div className="flex items-center justify-start gap-3 hover:bg-gray-100 rounded-2xl pr-14 pl-3 py-3 transition-all duration-500 cursor-pointer" onClick={() => setOpenLogoutModal(true)}>
                                         <div className="w-7 h-7 rounded-xl flex items-center justify-center bg-blue-400">
                                             <Icon name="LogOut" size={20} color="#fff" />

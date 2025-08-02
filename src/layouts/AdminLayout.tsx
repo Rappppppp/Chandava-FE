@@ -34,9 +34,8 @@ const navigation: { name: string; icon: keyof typeof icons; path: string }[] = [
     { name: "Manage Accommodations", icon: "Building2", path: "manage-accommodations" },
     { name: "Bookings", icon: "Calendar", path: "bookings" },
     { name: "Customers", icon: "Users", path: "customers" },
-    { name: "Analytics", icon: "ChartSpline", path: "analytics" },
     { name: "Messages", icon: "MessageSquare", path: "messages" },
-    { name: "Settings", icon: "Settings", path: "settings" },
+    // { name: "Settings", icon: "Settings", path: "settings" },
 ];
 
 const AdminLayout = () => {

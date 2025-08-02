@@ -1,10 +1,7 @@
 
-import AccomodationCard from "@features/users/components/AccomodationCard";
-import Title from "@components/Title";
-
 const RecentlyViewed = () => {
     return (<>
-        <div className="px-[0.1875rem]" id="Accommodations">
+        {/* <div className="px-[0.1875rem]" id="Accommodations">
             <div className="">
                 <Title title="Rooms You Recently Viewed" />
             </div>
@@ -25,7 +22,7 @@ const RecentlyViewed = () => {
   
             </div>
 
-        </div>
+        </div> */}
 
     </>);
 }

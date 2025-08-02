@@ -22,9 +22,9 @@ const UserMessagesPage = () => {
 
     if (authLoading) return "Loading..."
 
-    const { conversationList, messages, conversationFetching, title, messageLoading, handleSendMessage, sendingMessage, message, setMessage } = useMessaging(user?.id, convoId);
+    const { messageDivRef, conversationList, messages, conversationFetching, title, messageLoading, handleSendMessage, sendingMessage, message, setMessage } = useMessaging(user?.id, convoId);
     return (
-        <div className="flex  bg-gray-100">
+        <div className="flex h-[calc(100vh-9.5625rem)] bg-gray-100">
             {/* Contacts Sidebar */}
             <div className="w-full md:w-80 bg-white border-r border-gray-200 flex flex-col">
                 <div className=" border-b border-gray-200">
@@ -84,12 +84,7 @@ const UserMessagesPage = () => {
                                 </div>
                             </div>
                             <div className="flex items-center gap-4">
-                                {/* <button className="h-8 w-8 rounded-full flex items-center justify-center hover:bg-gray-100">
-                            <Phone className="h-5 w-5 text-gray-500" />
-                        </button>
-                        <button className="h-8 w-8 rounded-full flex items-center justify-center hover:bg-gray-100">
-                            <Video className="h-5 w-5 text-gray-500" />
-                        </button> */}
+
                                 <button className="h-8 w-8 rounded-full flex items-center justify-center hover:bg-gray-100">
                                     <MoreVertical className="h-5 w-5 text-gray-500" />
                                 </button>
@@ -105,7 +100,9 @@ const UserMessagesPage = () => {
                                         const isMe = message.user_id === user?.id;
                                         if (isMe) {
                                             return (
-                                                <div key={`me-${index}`} className="flex items-end justify-end gap-2 max-w-[80%] ml-auto">
+                                                <div
+                                                    ref={index === messages.length - 1 ? messageDivRef : null}
+                                                    key={`me-${index}`} className="flex items-end justify-end gap-2 max-w-[80%] ml-auto">
                                                     <div className="bg-primary text-white rounded-lg rounded-br-none p-3 shadow-sm">
                                                         <p className="text-sm">{message.body}</p>
                                                         <div className="flex items-center justify-end gap-1 mt-1">
@@ -126,7 +123,9 @@ const UserMessagesPage = () => {
                                             )
                                         }
                                         return (
-                                            <div key={`sender-${index}`} className="flex items-end gap-2 max-w-[80%]">
+                                            <div
+                                                ref={index === messages.length - 1 ? messageDivRef : null}
+                                                key={`sender-${index}`} className="flex items-end gap-2 max-w-[80%]">
                                                 <div className="h-8 w-8 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center">
                                                     <User className="h-4 w-4 text-gray-500" />
                                                 </div>
@@ -164,6 +163,14 @@ const UserMessagesPage = () => {
                                         type="text"
                                         value={message}
                                         onChange={e => setMessage(e.target.value)}
+                                        onKeyDown={e => {
+                                            if (e.key === "Enter" && !e.shiftKey) {
+                                                e.preventDefault();
+                                                if (message.trim() !== "" && !sendingMessage) {
+                                                    handleSendMessage(message);
+                                                }
+                                            }
+                                        }}
                                         placeholder="Type a message..."
                                         className="w-full pl-4 pr-10 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                     />
@@ -184,16 +191,7 @@ const UserMessagesPage = () => {
 
             </div>
 
-            {/* Empty State for Mobile */}
-            {/* <div className="hidden flex-1 items-center justify-center bg-gray-50">
-                <div className="text-center p-6">
-                    <div className="h-16 w-16 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
-                        <Clock className="h-8 w-8 text-primary" />
-                    </div>
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">Select a conversation</h3>
-                    <p className="text-sm text-gray-500">Choose from your existing conversations or start a new one.</p>
-                </div>
-            </div> */}
+
         </div>
     );
 }

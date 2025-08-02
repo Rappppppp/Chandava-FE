@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useCallback } from "react";
+import { useEffect, useState, useMemo, useCallback, useRef } from "react";
 import { ConversationList, Messages } from "@/types/conversationType";
 import { MessageService } from "@services/messageService";
 
@@ -10,6 +10,8 @@ export const useMessaging = (userId: string | number, convoId?: string | number)
     const [conversationList, setConversationList] = useState<ConversationList[]>([]);
     const [messages, setMessages] = useState<Messages[]>([]);
     const [message, setMessage] = useState("");
+
+    const messageDivRef = useRef<HTMLDivElement>(null);
 
     const title = useMemo(() => {
         if (convoId) {
@@ -42,6 +44,9 @@ export const useMessaging = (userId: string | number, convoId?: string | number)
             setMessageLoading(true);
             const res = await MessageService.getMessages(passConvoId);
             setMessages(res)
+            setTimeout(() => {
+                messageDivRef.current?.scrollIntoView({ behavior: "smooth" });
+            }, 100);
         } catch (error) {
             console.log(error)
         } finally {
@@ -78,7 +83,10 @@ export const useMessaging = (userId: string | number, convoId?: string | number)
             appendMessage(newMessage)
             setMessage("")
 
-            
+            setTimeout(() => {
+                messageDivRef.current?.scrollIntoView({ behavior: "smooth" });
+            }, 100);
+
         } catch (error) {
             console.log(error)
         } finally {
@@ -92,7 +100,7 @@ export const useMessaging = (userId: string | number, convoId?: string | number)
         messages,
         title,
         messageLoading, handleSendMessage, sendingMessage,
-        message, setMessage
+        message, setMessage, messageDivRef
     }
 
 }

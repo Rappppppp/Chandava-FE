@@ -1,5 +1,11 @@
 import { Accomodation } from "./accomodationType";
 
+export interface User {
+    id: number,
+    first_name: string,
+    last_name: string,
+}
+
 
 export interface MyBooking {
     id: number,
@@ -13,6 +19,7 @@ export interface MyBooking {
     status: string,
     receipt: string,
     admin_note: string,
-    room: Accomodation
+    room: Accomodation,
+    user: User
 
  }

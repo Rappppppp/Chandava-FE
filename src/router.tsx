@@ -30,7 +30,8 @@ const UserMessagesPage = lazy(() => import("@pages/users/UserMessagesPage"));
 const Dashboard = lazy(() => import("@pages/admin/Dashboard"));
 const ManageRooms = lazy(() => import("@pages/admin/ManageRooms"));
 const Messages = lazy(() => import("@pages/admin/Messages"));
-
+const Booking = lazy(() => import("@pages/admin/Booking"));
+const Users = lazy(() => import("@pages/admin/Users"));
 
 
 export const router = createBrowserRouter([
@@ -94,11 +95,12 @@ export const router = createBrowserRouter([
         children: [
           { path: "dashboard", element: <Dashboard /> },
           { path: "manage-accommodations", element: <ManageRooms /> },
-          { path: "bookings", element: <div>Admin bookings</div> },
-          { path: "customers", element: <div>Admin customers</div> },
-          { path: "analytics", element: <div>Admin analytics</div> },
+          { path: "bookings", element: <Booking /> },
+          { path: "customers", element: <Users /> },
           { path: "messages", element: <Messages /> },
-          { path: "settings", element: <div>Admin settings</div> },
+          { path: "messages/:convoId", element: <Messages /> },
+
+
 
 
 

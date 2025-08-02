@@ -167,7 +167,7 @@ const UserBookingPage = () => {
             setCreatingConvo(true);
             const res = await MessageService.createConvo({
                 user_id: user?.id,
-                receiver_id: activeBooking?.room_id,
+                receiver_id: 1,
                 title: `Booking ID: ${activeBooking?.id}`,
             })
             if (res.message === "Conversation with this title already exists.") {
