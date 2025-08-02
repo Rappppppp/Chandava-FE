@@ -44,7 +44,7 @@ const Users = () => {
     if (loading) return "Loading..."
 
     return ( <>
-              <Table columns={columns} data={users} tableTitle="Booking History" />
+              <Table columns={columns} data={users} tableTitle="All Users" />
     </> );
 }
  
