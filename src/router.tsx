@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { AuthProvider } from "@contexts/AuthContext";
+
 
 import { lazy } from "react";
 import MainLayout from "@layouts/MainLayout";
@@ -57,9 +57,9 @@ export const router = createBrowserRouter([
   {
     path: "/unauthorized",
     element: (
-      <AuthProvider>
-        <Unauthorized />
-      </AuthProvider>
+
+      <Unauthorized />
+
     ),
   },
 

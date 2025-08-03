@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { AuthService } from "@features/auth/services/AuthService";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 
@@ -26,7 +25,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 // Provider Component
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const navigate = useNavigate();
+
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [logoutLoading, setLogoutLoading] = useState(false);
@@ -55,7 +54,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setLogoutLoading(true);
       await AuthService.logout();
       setUser(null);
-      navigate("/login");
+      window.location.href = "/login";
+
 
 
     } catch (error) {

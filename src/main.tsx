@@ -4,6 +4,7 @@ import { RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { router } from "./router";
 import './index.css'
+import { AuthProvider } from "@contexts/AuthContext";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -11,9 +12,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       position="bottom-right"
       reverseOrder={false}
     />
-    <Suspense fallback={<div>Loading...</div>}>
-      <RouterProvider router={router} />
-    </Suspense>
+    <AuthProvider>
+      <Suspense fallback={<div>Loading...</div>}>
+        <RouterProvider router={router} />
+      </Suspense>
+    </AuthProvider>
 
   </React.StrictMode>
 );

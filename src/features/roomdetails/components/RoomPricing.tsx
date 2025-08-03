@@ -7,7 +7,7 @@ import { useInput } from "@hooks/useInput";
 import api, { AxiosError } from "@services/api";
 import toast from "react-hot-toast";
 import { useAuth } from "@contexts/AuthContext";
-
+import PaymentMethod from "@assets/images/payment_method.png"
 const RoomPricing = ({ isAuthPage = false, accommodation }: { isAuthPage: boolean, accommodation: Accomodation }) => {
     if (!accommodation) return <div>Loading...</div>;
     const [openModal, setOpenModal] = useState(false);
@@ -122,8 +122,9 @@ const RoomPricing = ({ isAuthPage = false, accommodation }: { isAuthPage: boolea
                 onClick={() => setOpenModal(true)}
                 className="mt-5 w-full cursor-pointer py-3 rounded-lg bg-primary text-white font-bold">Book Now</button>}
 
-            <Modal isOpen={openModal} setIsOpen={setOpenModal} className="max-w-2xl">
+            <Modal isOpen={openModal} setIsOpen={setOpenModal} className="max-w-2xl max-h-[90vh] overflow-y-auto">
                 <h1 className="font-bold text-2xl">Make a new booking</h1>
+                <p className="text-gray-700">Please note that there is no refund policy after booking.</p>
                 <form autoComplete="off" onSubmit={handleSubmit} className="grid grid-cols-1 gap-5">
                     <Input
                         label="Number of Guests"
@@ -165,6 +166,10 @@ const RoomPricing = ({ isAuthPage = false, accommodation }: { isAuthPage: boolea
 
                     {totalPrice && <p className="font-bold">Total Price: <span>{totalPrice}</span></p>}
 
+                    <p className="text-gray-700">Send your payment by scanning the QR code below, and uploading the receipt.</p>
+                    <div className="flex items-center justify-center">
+                        <img src={PaymentMethod} alt="payment method" className="w-full max-w-[20rem] rounded-lg" />
+                    </div>
 
                     <FileInput
                         label="Transaction Receipt (GCASH, Bank Transfer, etc.)"

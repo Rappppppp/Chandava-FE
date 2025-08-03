@@ -12,6 +12,7 @@ export const useMessaging = (userId: string | number, convoId?: string | number)
     const [message, setMessage] = useState("");
 
     const messageDivRef = useRef<HTMLDivElement>(null);
+    const isAlreadyFetched = useRef(false);
 
     const title = useMemo(() => {
         if (convoId) {
@@ -19,6 +20,25 @@ export const useMessaging = (userId: string | number, convoId?: string | number)
         }
     }, [convoId, conversationList])
 
+    console.log(isAlreadyFetched.current)
+
+    // useEffect(() => {
+    //     if (!isAlreadyFetched.current) return;
+
+    //     const intervalId = setInterval(async () => {
+    //         try {
+    //             const res = await MessageService.getMessages(convoId);
+    //             setMessages(res)
+    //             setTimeout(() => {
+    //                 messageDivRef.current?.scrollIntoView({ behavior: "smooth" });
+    //             }, 100);
+    //         } catch (error) {
+    //             console.error('Failed to fetch conversations:', error);
+    //         }
+    //     }, 5000); // 1000 ms = 1 second
+
+    //     return () => clearInterval(intervalId); // Clean up on unmount
+    // }, [isAlreadyFetched.current, convoId]);
 
 
     useEffect(() => {
@@ -27,6 +47,7 @@ export const useMessaging = (userId: string | number, convoId?: string | number)
                 setConversationFetching(true);
                 const res = await MessageService.getAllConvos(userId);
                 setConversationList(res)
+                isAlreadyFetched.current = true;
             } catch (error) {
                 console.log(error)
             } finally {
@@ -53,6 +74,8 @@ export const useMessaging = (userId: string | number, convoId?: string | number)
             setMessageLoading(false);
         }
     }, [])
+
+
 
     useEffect(() => {
         if (userId && convoId) {
