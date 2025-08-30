@@ -10,6 +10,8 @@ import { Modal } from "@components/Modal";
 import { Star } from 'lucide-react';
 import { MessageService } from "@services/messageService";
 import { useNavigate } from "react-router-dom";
+import { FileInput } from "@components/elements";
+import { useInput } from "@hooks/useInput";
 
 
 
@@ -48,6 +50,12 @@ const UserBookingPage = () => {
 
     const [creatingConvo, setCreatingConvo] = useState(false);
 
+
+
+    const { values, isValid, getPayload, reset, handleArrayChange } = useInput({
+        images: { value: [] as string[], required: true },
+    });
+
     const fetchMyBookings = useCallback(async (userId: string) => {
         try {
             setLoading(true);
@@ -81,6 +89,7 @@ const UserBookingPage = () => {
             await api.patch(`/update-booking-status`, { id, status: "cancelled" });
             toast.success("Booking cancelled successfully");
             await fetchMyBookings(user.id);
+
         } catch (error) {
             if (error instanceof AxiosError) {
                 toast.error(error?.response?.data.message)
@@ -124,10 +133,19 @@ const UserBookingPage = () => {
         {
             label: "Action",
             key: "room_id",
-            render: (value) => (
-                <button onClick={() => handleClickWriteReview(value as MyBooking["room_id"])} className="text-sm underline underline-offset-2 text-blue-500 cursor-pointer">Write a review</button>
-            ),
+            render: (value, row) =>
+                row.status === "cancelled" ? (
+                    <span className="text-sm text-gray-500">No Action Required</span>
+                ) : (
+                    <button
+                        onClick={() => handleClickWriteReview(value as MyBooking["room_id"])}
+                        className="text-sm underline underline-offset-2 text-blue-500 cursor-pointer"
+                    >
+                        Write a Review
+                    </button>
+                ),
         }
+
     ];
 
     const handleClickWriteReview = async (id: number) => {
@@ -138,6 +156,7 @@ const UserBookingPage = () => {
 
     const submitReview = async () => {
         if (selectedRoomIdForReview && rating && comment.trim() !== '') {
+            const payload = getPayload(values)
             try {
                 setReviewLoading(true)
                 await api.post(`/feedbacks`, {
@@ -145,10 +164,12 @@ const UserBookingPage = () => {
                     room_id: selectedRoomIdForReview,
                     rate: rating,
                     comment,
+                    ...(payload.images && payload.images.length > 0 ? { images: payload.images } : {})
                 });
                 setReviewModal(false);
                 setComment('');
                 setRating(0);
+                reset();
                 toast.success("Review submitted successfully");
             } catch (error) {
                 if (error instanceof AxiosError) {
@@ -293,29 +314,57 @@ const UserBookingPage = () => {
             <Modal isOpen={reviewModal} setIsOpen={setReviewModal} className="max-w-2xl min-w-2xl">
 
                 <h2 className="text-xl font-semibold mb-6">Leave a Review</h2>
+                <div className="space-y-6">
+                    {/* Rating */}
+                    <div>
+                        <label htmlFor="rating" className="block text-base font-medium text-slate-700">
+                            Rating <span className="text-red-500">*</span>
+                        </label>
+                        <p className="text-sm text-gray-500 mb-2">Select from 1 to 5 stars</p>
+                        <div className="flex gap-2">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <Star
+                                    key={star}
+                                    onClick={() => setRating(star)}
+                                    onMouseEnter={() => setHoverRating(star)}
+                                    onMouseLeave={() => setHoverRating(0)}
+                                    className={`w-8 h-8 transition-colors duration-200 cursor-pointer ${(hoverRating || rating) >= star
+                                        ? 'text-yellow-400'
+                                        : 'text-gray-300 hover:text-yellow-200'
+                                        }`}
+                                    fill={(hoverRating || rating) >= star ? 'currentColor' : 'none'}
+                                    strokeWidth={1.5}
+                                />
+                            ))}
+                        </div>
+                    </div>
 
-                <div className="flex gap-1 mb-6">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                        <Star
-                            key={star}
-                            onClick={() => setRating(star)}
-                            onMouseEnter={() => setHoverRating(star)}
-                            onMouseLeave={() => setHoverRating(0)}
-                            className={`w-6 h-6 cursor-pointer ${(hoverRating || rating) >= star ? 'text-yellow-400' : 'text-gray-300'
-                                }`}
-                            fill={(hoverRating || rating) >= star ? 'currentColor' : 'none'}
-                            strokeWidth={1.5}
+                    {/* Feedback */}
+                    <div>
+                        <label htmlFor="review" className="block text-base font-medium text-slate-700">
+                            Your Feedback <span className="text-red-500">*</span>
+                        </label>
+                        <p className="text-sm text-gray-500 mb-2">Share your experience with this booking</p>
+                        <textarea
+                            id="review"
+                            className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition shadow-sm"
+                            rows={5}
+                            placeholder="Write your comment here..."
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
                         />
-                    ))}
+                    </div>
+
+                    <div>
+                        <FileInput
+                            label="Upload photos (optional)"
+                            name="images"
+                            onChange={handleArrayChange}
+                            maxFiles={5}
+                        />
+                    </div>
                 </div>
 
-                <textarea
-                    className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary mb-6"
-                    rows={4}
-                    placeholder="Write your comment here..."
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                />
 
                 <div className="flex justify-end gap-2">
                     <button

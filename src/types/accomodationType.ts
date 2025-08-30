@@ -19,12 +19,18 @@ export interface Reviewer {
     name: string,
 }
 
+export interface FeedbackImage {
+    id: number,
+    image: string,
+}
+
 export interface Feedback {
     id: number,
     user_id: number,
     room_id: number,
     rate: number,
     comment: string,
+    images: FeedbackImage[]
     user: Reviewer,
     created_at: string
 }

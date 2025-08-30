@@ -38,7 +38,7 @@ const Accomodations = () => {
                                 key={index}
                                 roomId={accommodation.id}
                                 roomName={accommodation.room_name}
-                                accommodationTypeName={accommodation.accommodation_type.accommodation_type_name}
+                                accommodationTypeName={accommodation.accommodation_type?.accommodation_type_name ?? ""}
                                 dayNightTourPrice={accommodation.day_night_tour_price}
                                 roomInclusions={accommodation.room_inclusions}
                                 roomImage={accommodation.room_images.find(img => img.is_main_image)?.file}

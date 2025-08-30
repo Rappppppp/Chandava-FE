@@ -87,10 +87,24 @@ const RoomDetails = () => {
                                 </div>
                             </div>
                             <p className="text-sm text-gray-700">
-                                {
-                                    feedback.comment
-                                }
+                                {feedback.comment}
                             </p>
+
+                            {
+                                (feedback.images && feedback.images.length > 0) && (
+                                    <div className="flex gap-3 mt-3">
+
+                                        {
+                                            feedback.images.map((img, index) => (
+                                                <div key={index} className="w-[6.25rem] aspect-square bg-primary rounded-xl flex  overflow-hidden justify-center items-center relative">
+                                                    <img src={`${import.meta.env.VITE_BE_BASE_URL}/storage/uploads/images/${img.image}`} alt="" />
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                )
+                            }
+
                         </div>
                     ))
                 )
