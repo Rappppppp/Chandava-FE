@@ -105,6 +105,15 @@ const RoomDetails = () => {
                                 )
                             }
 
+                            {
+                                feedback.response && (
+                                    <div className="mt-5">
+                                        <p className="text-sm">Admin response:</p>
+                                        <p className="text-sm text-gray-700">{feedback.response.response}</p>
+                                    </div>
+                                )
+                            }
+
                         </div>
                     ))
                 )

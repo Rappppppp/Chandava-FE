@@ -24,6 +24,14 @@ export interface FeedbackImage {
     image: string,
 }
 
+interface Response {
+    id: number,
+    feedback_id: number,
+    response: string,
+    created_at: string,
+    updated_at: string,
+}
+
 export interface Feedback {
     id: number,
     user_id: number,
@@ -32,6 +40,7 @@ export interface Feedback {
     comment: string,
     images: FeedbackImage[]
     user: Reviewer,
+    response: Response | null,
     created_at: string
 }
 

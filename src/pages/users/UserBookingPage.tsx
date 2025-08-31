@@ -52,7 +52,7 @@ const UserBookingPage = () => {
 
 
 
-    const { values, isValid, getPayload, reset, handleArrayChange } = useInput({
+    const { values, getPayload, reset, handleArrayChange } = useInput({
         images: { value: [] as string[], required: true },
     });
 

@@ -1,6 +1,11 @@
 import Icon from "@components/Icon";
+interface FeedbackCardProps {
+    name: string;
+    date: string;
+    message: string;
+}
 
-const FeedbackCard = () => {
+const FeedbackCard = ({ name, date, message }: FeedbackCardProps) => {
     return (
         <div className="shadow-md rounded-2xl max-w-[16rem] md:max-w-96 p-5 flex-col flex-shrink-0 snap-start border border-gray-100">
             <div className="mb-3 flex items-center gap-3">
@@ -8,16 +13,14 @@ const FeedbackCard = () => {
                     <Icon name="User" size={30} color="white" />
                 </div>
                 <div>
-                    <p>Customers name here</p>
+                    <p>{name}</p>
                     <p className="text-xs text-gray-500">
-                        March 1, 2025
+                        {date}
                     </p>
                 </div>
             </div>
             <p className="text-sm text-gray-700">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis, illo corporis ab natus
-                reiciendis assumenda! Optio iusto iste, aliquam obcaecati placeat voluptas veniam ea odio ut
-                earum! Perferendis, minima exercitationem?
+                {message}
             </p>
         </div>
     );
