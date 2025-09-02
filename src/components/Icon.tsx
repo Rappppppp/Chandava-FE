@@ -8,7 +8,7 @@ interface IconProps {
   className?: string;
 }
 
-const Icon: React.FC<IconProps> = ({ name, color = "gray", size = 24, className = "" }) => {
+const Icon: React.FC<IconProps> = ({ name, color, size = 24, className = "" }) => {
   const IconComponent = icons[name];
 
   if (!IconComponent) {

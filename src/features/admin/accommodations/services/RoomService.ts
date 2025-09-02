@@ -16,4 +16,9 @@ export const RoomService = {
         return response.data;
     },
 
+    updateRoom: async (id: number, data: any) => {
+        const response = await api.patch(`/${BASE}/${id}`, data);
+        return response.data;
+    },
+
 }

@@ -57,7 +57,6 @@ export interface Accomodation {
     room_images: RoomImage[],
     feedbacks: Feedback[]
     avg_rating: string | number | null
-
 }
 
 

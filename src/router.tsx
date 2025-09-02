@@ -34,6 +34,7 @@ const Inquiries = lazy(() => import("@pages/admin/Inquiries"));
 const Booking = lazy(() => import("@pages/admin/Booking"));
 const Users = lazy(() => import("@pages/admin/Users"));
 const Feedbacks = lazy(() => import("@pages/admin/Feedbacks"));
+const Rooms = lazy(() => import("@pages/admin/Rooms"));
 
 
 
@@ -100,6 +101,7 @@ export const router = createBrowserRouter([
         children: [
           { path: "dashboard", element: <Dashboard /> },
           { path: "manage-accommodations", element: <ManageRooms /> },
+          { path: "accommodations", element: <Rooms /> },
           { path: "bookings", element: <Booking /> },
           { path: "customers", element: <Users /> },
           { path: "inquiries", element: <Inquiries /> },

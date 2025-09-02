@@ -20,6 +20,25 @@ export const useInput = <T extends Record<string, any>>(initialState: FormState<
   const [values, setValues] = useState(initialState);
   const [errors, setErrors] = useState<Errors<T>>({});
 
+  const setDefaultValues = (incoming: any) => {
+    setValues((prev) => {
+      const updated = { ...prev } as any; // allow writes
+
+      Object.keys(incoming).forEach((key) => {
+        if (updated[key]) {
+          updated[key] = {
+            ...updated[key],
+            value: incoming[key],
+          };
+        }
+      });
+
+      return updated;
+    });
+  };
+
+
+
   const validateField = (name: keyof T, field: Field<any>) => {
     const value = field.value.toString().trim();
     let errorMessage = "";
@@ -44,6 +63,8 @@ export const useInput = <T extends Record<string, any>>(initialState: FormState<
 
     setErrors((prev) => ({ ...prev, [name]: errorMessage }));
   };
+
+
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -90,5 +111,5 @@ export const useInput = <T extends Record<string, any>>(initialState: FormState<
     return payload;
   };
 
-  return { values, handleChange, errors, isValid, setValues, handleArrayChange, getPayload, reset }; // ✅ Now includes `setValues`
+  return { values, handleChange, errors, isValid, setValues, handleArrayChange, getPayload, reset, setDefaultValues }; // ✅ Now includes `setValues`
 };
