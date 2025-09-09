@@ -10,56 +10,54 @@ const Booking = () => {
 
     const [myBookings, setMyBookings] = useState<MyBooking[]>([]);
     const [loading, setLoading] = useState(false);
-    const [rescheduleLoading, setRescheduleLoading] = useState(false);
-    const [rescheduleModal, setRescheduleModal] = useState(false);
-    const [selectedBookingId, setSelectedBookingId] = useState<number | null>(null);
-    const [checkInDate, setCheckInDate] = useState<Date | null>(null);
-    const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
+    // const [rescheduleLoading, setRescheduleLoading] = useState(false);
+    // const [rescheduleModal, setRescheduleModal] = useState(false);
+    // const [selectedBookingId, setSelectedBookingId] = useState<number | null>(null);
+    // const [checkInDate, setCheckInDate] = useState<Date | null>(null);
+    // const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
 
 
     const [bookingDetailsModal, setBookingDetailsModal] = useState(false);
     const [selectedBooking, setSelectedBooking] = useState<MyBooking | null>(null);
 
-    const handleSubmitNewSchedule = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    // const handleSubmitNewSchedule = async (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
 
-        if (!checkInDate || !checkOutDate || !selectedBookingId) {
-            toast.error("Please select both check-in and check-out dates.");
-            return;
-        }
+    //     if (!checkInDate || !checkOutDate || !selectedBookingId) {
+    //         toast.error("Please select both check-in and check-out dates.");
+    //         return;
+    //     }
 
-        // Example payload
-        const payload = {
-            id: selectedBookingId,
-            check_in: checkInDate.toISOString().split("T")[0], // YYYY-MM-DD
-            check_out: checkOutDate.toISOString().split("T")[0],
-        };
-
-
-
-        try {
-            setRescheduleLoading(true);
-            await api.patch("/update-booking-date", payload);
-            toast.success("Reschedule submitted successfully.");
-            setRescheduleModal(false);
-            fetchBooking();
-        } catch (error) {
-            console.error("Error submitting reschedule:", error);
-            toast.error("Error submitting reschedule.");
-        } finally {
-            setRescheduleLoading(false);
-        }
-
-        // TODO: call your API here
-        // await api.post('/update-date', payload);
+    //     // Example payload
+    //     const payload = {
+    //         id: selectedBookingId,
+    //         check_in: checkInDate.toISOString().split("T")[0], // YYYY-MM-DD
+    //         check_out: checkOutDate.toISOString().split("T")[0],
+    //     };
 
 
-    }
 
-    const handleOpenRescheduleModal = (id: number) => {
-        setSelectedBookingId(id);
-        setRescheduleModal(true);
-    }
+    //     try {
+    //         setRescheduleLoading(true);
+    //         await api.patch("/update-booking-date", payload);
+    //         toast.success("Reschedule submitted successfully.");
+    //         setRescheduleModal(false);
+    //         fetchBooking();
+    //     } catch (error) {
+    //         console.error("Error submitting reschedule:", error);
+    //         toast.error("Error submitting reschedule.");
+    //     } finally {
+    //         setRescheduleLoading(false);
+    //     }
+
+
+
+    // }
+
+    // const handleOpenRescheduleModal = (id: number) => {
+    //     setSelectedBookingId(id);
+    //     setRescheduleModal(true);
+    // }
 
     const fetchBooking = useCallback(async () => {
         try {
@@ -127,13 +125,13 @@ const Booking = () => {
             ),
         },
 
-        {
-            label: "Change Schedule",
-            key: "user_id",
-            render: (_, row) => (
-                <button onClick={() => handleOpenRescheduleModal(row.id)} className="text-sm underline underline-offset-2 text-blue-500 cursor-pointer">Reschedule</button>
-            ),
-        },
+        // {
+        //     label: "Change Schedule",
+        //     key: "user_id",
+        //     render: (_, row) => (
+        //         <button onClick={() => handleOpenRescheduleModal(row.id)} className="text-sm underline underline-offset-2 text-blue-500 cursor-pointer">Reschedule</button>
+        //     ),
+        // },
 
 
 
@@ -257,7 +255,7 @@ const Booking = () => {
             </Modal>
 
 
-            <Modal
+            {/* <Modal
                 isOpen={rescheduleModal}
                 setIsOpen={setRescheduleModal}
                 className="max-w-2xl min-w-lg"
@@ -267,7 +265,7 @@ const Booking = () => {
                 </p>
 
                 <form onSubmit={handleSubmitNewSchedule} className="space-y-4">
-                    {/* Check In Date */}
+           
                     <div>
                         <label className="block text-sm font-medium mb-1">Check In Date</label>
                         <input
@@ -279,7 +277,7 @@ const Booking = () => {
                         />
                     </div>
 
-                    {/* Check Out Date */}
+          
                     <div>
                         <label className="block text-sm font-medium mb-1">Check Out Date</label>
                         <input
@@ -291,7 +289,7 @@ const Booking = () => {
                         />
                     </div>
 
-                    {/* Submit button */}
+        
                     <div className="flex justify-end gap-2">
                         <button
                             type="button"
@@ -309,7 +307,7 @@ const Booking = () => {
                         </button>
                     </div>
                 </form>
-            </Modal>
+            </Modal> */}
 
 
             <Modal

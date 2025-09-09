@@ -25,6 +25,7 @@ const UserFavoritePage = lazy(() => import("@pages/users/UserFavoritesPage"));
 const UserFeedbackPage = lazy(() => import("@pages/users/UserFeedbackPage"));
 const UserCouponPage = lazy(() => import("@pages/users/UserCouponPage"));
 const UserMessagesPage = lazy(() => import("@pages/users/UserMessagesPage"));
+const UserRequestsPage = lazy(() => import("@pages/users/UserRequestsPage"));
 
 
 const Dashboard = lazy(() => import("@pages/admin/Dashboard"));
@@ -35,6 +36,9 @@ const Booking = lazy(() => import("@pages/admin/Booking"));
 const Users = lazy(() => import("@pages/admin/Users"));
 const Feedbacks = lazy(() => import("@pages/admin/Feedbacks"));
 const Rooms = lazy(() => import("@pages/admin/Rooms"));
+const ChangeSchedule = lazy(() => import("@pages/admin/ChangeSchedule"));
+
+
 
 
 
@@ -80,6 +84,8 @@ export const router = createBrowserRouter([
           { path: "home", element: <UserHomePage /> },
           { path: "room/:roomId", element: <RoomDetails /> },
           { path: "bookings", element: <UserBookingPage /> },
+          { path: "my-requests", element: <UserRequestsPage /> },
+
           { path: "favorites", element: <UserFavoritePage /> },
           { path: "feedbacks", element: <UserFeedbackPage /> },
           { path: "coupons", element: <UserCouponPage /> },
@@ -106,7 +112,7 @@ export const router = createBrowserRouter([
           { path: "customers", element: <Users /> },
           { path: "inquiries", element: <Inquiries /> },
           { path: "feedbacks", element: <Feedbacks /> },
-
+          { path: "change-schedule", element: <ChangeSchedule /> },
           { path: "messages", element: <Messages /> },
           { path: "messages/:convoId", element: <Messages /> },
 

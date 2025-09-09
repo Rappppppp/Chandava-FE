@@ -13,7 +13,9 @@ import { ConfirmModal } from "@components/Modal";
 const navLinks = [
     { label: "Home", link: "home" },
     { label: "Bookings", link: "bookings" },
+    { label: "My Requests", link: "my-requests" },
     { label: "Messages", link: "messages" },
+
 
 
 ]

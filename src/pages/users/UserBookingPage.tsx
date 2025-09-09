@@ -202,6 +202,51 @@ const UserBookingPage = () => {
         }
     }
 
+    const [changeScheduleModal, setChangeScheduleModal] = useState(false);
+    const [selectedBookingId, setSelectedBookingId] = useState<number | string | null>(null);
+    const [rescheduleLoading, setRescheduleLoading] = useState(false);
+    const [checkInDate, setCheckInDate] = useState<Date | null>(null);
+    const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
+
+    const openChangeScheduleModal = (bookingId: number | string) => {
+        setSelectedBookingId(bookingId);
+        setChangeScheduleModal(true);
+    }
+
+    const handleSubmitNewSchedule = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        if (!checkInDate || !checkOutDate || !selectedBookingId) {
+            toast.error("Please select both check-in and check-out dates.");
+            return;
+        }
+
+        // Example payload
+        const payload = {
+            user_id: user?.id,
+            booking_id: selectedBookingId,
+            check_in: checkInDate.toISOString().split("T")[0], // YYYY-MM-DD
+            check_out: checkOutDate.toISOString().split("T")[0],
+        };
+
+
+
+        try {
+            setRescheduleLoading(true);
+            await api.post("/change-schedule", payload);
+            toast.success("Reschedule submitted successfully.");
+            setChangeScheduleModal(false);
+        } catch (error) {
+            console.error("Error submitting reschedule:", error);
+            toast.error("You have already made a request for this booking.");
+        } finally {
+            setRescheduleLoading(false);
+        }
+
+
+
+    }
+
     if (loading) return "Loading..."
 
     return (
@@ -241,16 +286,78 @@ const UserBookingPage = () => {
                     </div>
 
                     <div
-                        onClick={createConvo}
-                        className=" flex items-center justify-center border-t border-primary pt-3 gap-2 cursor-pointer">
-                        <Icon name="MessageCircle" size={30} color="#387A57" />
-                        <p>Chat with the stuff</p>
+
+                        className=" flex items-center justify-center border-t border-primary pt-3 gap-5 cursor-pointer">
+                        <div
+                            onClick={createConvo}
+                            className="flex items-center justify-center gap-2">
+                            <Icon name="MessageCircle" size={30} color="#387A57" />
+                            <p>Chat with the stuff</p>
+                        </div>
+
+                        <div
+                            onClick={() => { openChangeScheduleModal(activeBooking.id) }}
+                            className="flex items-center justify-center gap-2">
+                            <Icon name="Calendar" size={30} color="#387A57" />
+                            <p>Change Schedule</p>
+                        </div>
                     </div>
+
                 </div>
             )}
 
             <Table columns={columns} data={myBookings} tableTitle="Booking History" />
 
+
+            <Modal isOpen={changeScheduleModal} setIsOpen={setChangeScheduleModal} className="max-w-2xl min-w-2xl">
+                <p className="text-xl font-semibold mb-4">
+                    Change Check In and Check Out Date
+                </p>
+
+                <form onSubmit={handleSubmitNewSchedule} className="space-y-4">
+                    {/* Check In Date */}
+                    <div>
+                        <label className="block text-sm font-medium mb-1">Check In Date</label>
+                        <input
+                            type="date"
+                            value={checkInDate ? checkInDate.toISOString().split("T")[0] : ""}
+                            onChange={(e) => setCheckInDate(e.target.value ? new Date(e.target.value) : null)}
+                            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            required
+                        />
+                    </div>
+
+                    {/* Check Out Date */}
+                    <div>
+                        <label className="block text-sm font-medium mb-1">Check Out Date</label>
+                        <input
+                            type="date"
+                            value={checkOutDate ? checkOutDate.toISOString().split("T")[0] : ""}
+                            onChange={(e) => setCheckOutDate(e.target.value ? new Date(e.target.value) : null)}
+                            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            required
+                        />
+                    </div>
+
+                    {/* Submit button */}
+                    <div className="flex justify-end gap-2">
+                        <button
+                            type="button"
+                            onClick={() => setChangeScheduleModal(false)}
+                            className="px-4 py-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-50"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            disabled={rescheduleLoading}
+                            className="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700"
+                        >
+                            {rescheduleLoading ? "Loading..." : "Submit Request"}
+                        </button>
+                    </div>
+                </form>
+            </Modal>
 
             <Modal isOpen={activeBooking ? allDetailsModal : false} setIsOpen={setAllDetailsModal} className="max-w-2xl min-w-2xl">
                 {activeBooking && <>

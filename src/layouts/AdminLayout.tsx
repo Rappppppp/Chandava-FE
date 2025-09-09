@@ -34,6 +34,7 @@ const navigation: { name: string; icon: keyof typeof icons; path: string }[] = [
     { name: "Manage Accommodations", icon: "Building2", path: "manage-accommodations" },
     { name: "Accommodations", icon: "House", path: "accommodations" },
     { name: "Bookings", icon: "Calendar", path: "bookings" },
+    { name: "Change Schedule Requests", icon: "Settings2", path: "change-schedule" },
     { name: "Customers", icon: "Users", path: "customers" },
     { name: "Inquiries", icon: "MessagesSquare", path: "inquiries" },
     { name: "Feedbacks", icon: "Laugh", path: "feedbacks" },
