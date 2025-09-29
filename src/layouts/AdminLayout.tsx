@@ -38,6 +38,8 @@ const navigation: { name: string; icon: keyof typeof icons; path: string }[] = [
     { name: "Customers", icon: "Users", path: "customers" },
     { name: "Inquiries", icon: "MessagesSquare", path: "inquiries" },
     { name: "Feedbacks", icon: "Laugh", path: "feedbacks" },
+    { name: "Analytics", icon: "ChartArea", path: "analytics" },
+
 
 
     { name: "Messages", icon: "MessageSquare", path: "messages" },

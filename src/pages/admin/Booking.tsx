@@ -392,7 +392,7 @@ const Booking = () => {
                             <div className="flex-1">
                                 <p className="text-lg font-semibold">{selectedBooking?.room.room_name}</p>
                                 <p className="text-sm text-gray-500 mb-2">
-                                    {selectedBooking?.room.accommodation_type.accommodation_type_name}
+                                    {selectedBooking?.room?.accommodation_type?.accommodation_type_name ?? "Accommodation type has been deleted or moved."}
                                 </p>
                                 <ul className="flex flex-wrap gap-2 text-xs">
                                     {selectedBooking?.room.room_inclusions?.map((inc) => (

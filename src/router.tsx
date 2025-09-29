@@ -37,7 +37,7 @@ const Users = lazy(() => import("@pages/admin/Users"));
 const Feedbacks = lazy(() => import("@pages/admin/Feedbacks"));
 const Rooms = lazy(() => import("@pages/admin/Rooms"));
 const ChangeSchedule = lazy(() => import("@pages/admin/ChangeSchedule"));
-
+const Analytics = lazy(() => import("@pages/admin/Analytics"));
 
 
 
@@ -115,6 +115,7 @@ export const router = createBrowserRouter([
           { path: "change-schedule", element: <ChangeSchedule /> },
           { path: "messages", element: <Messages /> },
           { path: "messages/:convoId", element: <Messages /> },
+          { path: "analytics", element: <Analytics /> },
 
         ]
       }
