@@ -77,7 +77,7 @@ const RoomPricing = ({ isAuthPage = false, accommodation }: { isAuthPage: boolea
 
         }
     }
-
+//push to main
 
     return (
         <div className="w-full md:1/2">
