@@ -1,8 +1,11 @@
-import { Calendar, Tent, Users, ChevronRight, PhilippinePeso } from "lucide-react"
+import { Calendar, Users, AudioLines as PhilippinePeso, Tent, LucideLoader2 } from "lucide-react"
+import { ReportsTable } from "@features/admin/dashboard/ReportsTable"
+import { CheckInsList } from "@features/admin/dashboard/CheckInsList"
+
 import { useEffect, useState } from "react"
-import api, { AxiosError } from "@services/api";
-import { MyBooking } from "@/types/myBooking";
-import { Link } from "react-router-dom";
+import api, { AxiosError } from "@services/api"
+import { MyBooking } from "@/types/myBooking"
+import { Link } from "react-router-dom"
 
 interface CardData {
   total_bookings: number,
@@ -12,7 +15,7 @@ interface CardData {
   recent_bookings: MyBooking[]
 }
 
-const Dashboard = () => {
+export default function Dashboard() {
   const [cardData, setCardData] = useState<CardData>({
     total_bookings: 0,
     total_users: 0,
@@ -40,137 +43,97 @@ const Dashboard = () => {
     fetchData()
   }, [])
 
-  console.log(cardData)
-
-  if (loading) return "Loading..."
-
   return (
-    <div className="min-h-screen ">
+    <main className="min-h-screen bg-gray-50">
       {/* Header */}
-
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+          <p className="text-gray-600 mt-2">Track your bookings, check-ins, and financial analytics</p>
+        </div>
+      </div>
 
       {/* Main Content */}
-      <main className="">
+      <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Total Bookings Card */}
+          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500">Total Bookings</p>
-                <p className="text-2xl font-semibold text-gray-800">{cardData.total_bookings}</p>
+                <p className="text-sm font-medium text-gray-600">Total Bookings</p>
+                <p className="text-3xl font-bold text-gray-900 mt-2">
+                  {loading ? <LucideLoader2 className="animate-spin w-8 h-8 text-gray-600" />  : cardData.total_bookings.toLocaleString()}
+                </p>
               </div>
-              <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
-                <Calendar className="h-5 w-5 text-blue-600" />
+              <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                <Calendar className="h-6 w-6 text-blue-600" />
               </div>
             </div>
-
           </div>
 
-          <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+          {/* Check-ins Card */}
+          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500">Active Campers</p>
-                <p className="text-2xl font-semibold text-gray-800">{cardData.total_users}</p>
+                <p className="text-sm font-medium text-gray-600">Active Guests</p>
+                <p className="text-3xl font-bold text-gray-900 mt-2">{loading ? <LucideLoader2 className="animate-spin w-8 h-8 text-gray-600" />  : cardData.total_users.toLocaleString()}</p>
               </div>
-              <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
-                <Users className="h-5 w-5 text-green-600" />
+              <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                <Users className="h-6 w-6 text-green-600" />
               </div>
             </div>
-
           </div>
 
-          <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+          {/* Revenue Card */}
+          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500">Revenue</p>
-                <p className="text-2xl font-semibold text-gray-800">P {cardData.total_revenue}</p>
+                <p className="text-sm font-medium text-gray-600">Total Revenue</p>
+                <p className="text-3xl font-bold text-gray-900 mt-2">
+                  {loading ? <LucideLoader2 className="animate-spin w-8 h-8 text-gray-600" />  :  new Intl.NumberFormat("en-PH", {
+                    style: "currency",
+                    currency: "PHP",
+                    maximumFractionDigits: 0,
+                  }).format(cardData.total_revenue)}
+                </p>
               </div>
-              <div className="h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center">
-                <PhilippinePeso className="h-5 w-5 text-purple-600" />
+              <div className="h-12 w-12 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                <PhilippinePeso className="h-6 w-6 text-purple-600" />
               </div>
             </div>
-
           </div>
 
-          <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+          {/* Available Rooms Card */}
+          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500">Available Rooms</p>
-                <p className="text-2xl font-semibold text-gray-800">{cardData.available_rooms}</p>
+                <p className="text-sm font-medium text-gray-600">Available Rooms</p>
+                <p className="text-3xl font-bold text-gray-900 mt-2">{loading ? <LucideLoader2 className="animate-spin w-8 h-8 text-gray-600" /> : cardData.available_rooms}</p>
               </div>
-              <div className="h-10 w-10 rounded-full bg-amber-100 flex items-center justify-center">
-                <Tent className="h-5 w-5 text-amber-600" />
+              <div className="h-12 w-12 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                <Tent className="h-6 w-6 text-amber-600" />
               </div>
             </div>
-
           </div>
         </div>
 
-        {/* Recent Bookings */}
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm mb-6">
-          <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-            <h2 className="text-lg font-semibold text-gray-800">Recent Bookings</h2>
-            <Link to="/admin/bookings" className="text-sm text-green-600 font-medium flex items-center gap-1">
-              <span>View All</span>
-              <ChevronRight className="h-4 w-4" />
-            </Link>
+        {/* Reports Section */}
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">Financial Reports</h2>
+              <p className="text-gray-600 mt-1">View and manage your detailed financial records</p>
+            </div>
           </div>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="bg-gray-50">
-                  <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Customer
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Site
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Check In
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Check Out
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Amount
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {cardData.recent_bookings.map((booking) => (
-                  <tr key={booking.id} className="hover:bg-gray-50">
-                    <td className="py-3 px-4 text-sm text-gray-800">{booking.user.first_name} {booking.user.last_name}</td>
-                    <td className="py-3 px-4 text-sm text-gray-800">{booking.room.room_name}</td>
-                    <td className="py-3 px-4 text-sm text-gray-800">{booking.check_in}</td>
-                    <td className="py-3 px-4 text-sm text-gray-800">{booking.check_out}</td>
-                    <td className="py-3 px-4 text-sm text-gray-800">{booking.total_price}</td>
-                    <td className="py-3 px-4 text-sm">
-                      <span
-                        className={`px-2 py-1 rounded-full text-xs font-medium ${booking.status === "completed"
-                          ? "bg-green-100 text-green-800"
-                          : booking.status === "confirmed"
-                            ? "bg-blue-100 text-blue-800"
-                            : "bg-amber-100 text-amber-800"
-                          }`}
-                      >
-                        {booking.status}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <ReportsTable />
         </div>
 
-  
-      </main>
-    </div>
+        {/* Check-ins Section */}
+        <div className="space-y-6">
+          <CheckInsList />
+        </div>
+      </div>
+    </main>
   )
 }
-
-export default Dashboard
-

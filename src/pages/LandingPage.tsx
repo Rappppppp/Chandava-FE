@@ -1,3 +1,4 @@
+
 import { lazy, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 const HeroSection = lazy(() => import("@features/landingpage/components/HeroSection"));
@@ -6,7 +7,7 @@ const AboutUs = lazy(() => import("@features/landingpage/components/AboutUs"));
 const WhatCanWeOffer = lazy(() => import("@features/landingpage/components/WhatCanWeOffer"));
 const Accomodations = lazy(() => import("@features/landingpage/components/Accomodations"));
 const ContactUs = lazy(() => import("@features/landingpage/components/ContactUs"));
-
+const Chatbot = lazy(() => import("@features/landingpage/components/Chatbot"));
 
 
 
@@ -28,7 +29,8 @@ const LandingPage = () => {
     }, [scrollTo]);
 
     return (
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-10 mt-30">
+            <Chatbot />
             <HeroSection />
             <Feedback />
             <AboutUs />

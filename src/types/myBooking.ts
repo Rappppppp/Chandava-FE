@@ -10,6 +10,15 @@ export interface User {
     
 }
 
+export interface Feedback {
+    id: number,
+    user_id: number,
+    room_id: number,
+    rate: number,
+    comment: string,
+    images: string[]
+}
+
 
 export interface MyBooking {
     id: number,
@@ -25,5 +34,5 @@ export interface MyBooking {
     admin_note: string,
     room: Accomodation,
     user: User
-
+    feedback?: Feedback
  }

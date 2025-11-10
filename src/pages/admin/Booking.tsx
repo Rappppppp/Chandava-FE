@@ -5,6 +5,7 @@ import api, { AxiosError } from "@services/api";
 import { useEffect, useState, useCallback } from "react";
 import { Modal } from "@components/Modal";
 import toast from "react-hot-toast";
+import { getStatusColor } from "@helpers/index";
 
 const Booking = () => {
 
@@ -87,6 +88,15 @@ const Booking = () => {
 
 
     const columns: Column<MyBooking>[] = [
+              {
+                    label: "Status",
+                    key: "status",
+                    render: (value) => (
+                        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(value as MyBooking["status"])}`}>
+                            {value as MyBooking["status"]}
+                        </span>
+                    ),
+                },
         {
             label: "Customer",
             key: "user",
@@ -124,17 +134,6 @@ const Booking = () => {
                 <button onClick={() => handleClickCheckIn(value as MyBooking["room_id"])} className="text-sm underline underline-offset-2 text-blue-500 cursor-pointer">Mark as Checked In</button>
             ),
         },
-
-        // {
-        //     label: "Change Schedule",
-        //     key: "user_id",
-        //     render: (_, row) => (
-        //         <button onClick={() => handleOpenRescheduleModal(row.id)} className="text-sm underline underline-offset-2 text-blue-500 cursor-pointer">Reschedule</button>
-        //     ),
-        // },
-
-
-
         {
             label: "View Details",
             key: "no_guests",
@@ -142,9 +141,6 @@ const Booking = () => {
                 <button onClick={() => handleViewDetails(row)} className="text-sm underline underline-offset-2 text-blue-500 cursor-pointer">View</button>
             ),
         },
-
-
-
     ];
 
 
@@ -253,63 +249,6 @@ const Booking = () => {
                 </div>
 
             </Modal>
-
-
-            {/* <Modal
-                isOpen={rescheduleModal}
-                setIsOpen={setRescheduleModal}
-                className="max-w-2xl min-w-lg"
-            >
-                <p className="text-xl font-semibold mb-4">
-                    Change Check In and Check Out Date
-                </p>
-
-                <form onSubmit={handleSubmitNewSchedule} className="space-y-4">
-           
-                    <div>
-                        <label className="block text-sm font-medium mb-1">Check In Date</label>
-                        <input
-                            type="date"
-                            value={checkInDate ? checkInDate.toISOString().split("T")[0] : ""}
-                            onChange={(e) => setCheckInDate(e.target.value ? new Date(e.target.value) : null)}
-                            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            required
-                        />
-                    </div>
-
-          
-                    <div>
-                        <label className="block text-sm font-medium mb-1">Check Out Date</label>
-                        <input
-                            type="date"
-                            value={checkOutDate ? checkOutDate.toISOString().split("T")[0] : ""}
-                            onChange={(e) => setCheckOutDate(e.target.value ? new Date(e.target.value) : null)}
-                            className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            required
-                        />
-                    </div>
-
-        
-                    <div className="flex justify-end gap-2">
-                        <button
-                            type="button"
-                            onClick={() => setRescheduleModal(false)}
-                            className="px-4 py-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-50"
-                        >
-                            Cancel
-                        </button>
-                        <button
-                            type="submit"
-                            disabled={rescheduleLoading}
-                            className="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700"
-                        >
-                            {rescheduleLoading ? "Loading..." : "Submit Changes"}
-                        </button>
-                    </div>
-                </form>
-            </Modal> */}
-
-
             <Modal
                 isOpen={bookingDetailsModal}
                 setIsOpen={setBookingDetailsModal}

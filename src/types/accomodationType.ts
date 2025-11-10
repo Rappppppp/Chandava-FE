@@ -1,6 +1,7 @@
 export interface AccomodationType {
     id: number,
     accommodation_type_name: string
+    max_guests: number
 }
 
 export interface RoomInclusions {

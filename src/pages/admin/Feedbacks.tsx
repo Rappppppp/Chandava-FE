@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import api, { AxiosError } from "@services/api";
 import Icon from "@components/Icon";
 import toast from "react-hot-toast";
+import { Star } from "lucide-react";
 interface User {
     id: number,
     name: string,
@@ -118,13 +119,24 @@ const Feedbacks = () => {
         {
             feedbacks.length > 0 && (
                 feedbacks.map((feedback, index) => (
-                    <div key={index} className="shadow-sm rounded-2xl  p-5 flex-col mb-3">
+                    <div key={index} className="shadow-sm rounded-2xl  p-5 flex-col space-y-3">
                         <div className="mb-3 flex items-center gap-3">
-                            <div className="aspect-square w-[3.75rem] bg-primary rounded-full flex justify-center items-center">
+                            {/* <div className="aspect-square w-[3.75rem] bg-primary rounded-full flex justify-center items-center">
                                 <Icon name="User" size={30} color="white" />
-                            </div>
+                            </div> */}
                             <div>
                                 <p>{feedback.user?.name} • <span className="text-sm">{feedback.rate} </span></p>
+                                <div className="flex space-x-1">
+                                    {[1, 2, 3, 4, 5].map((star) => (
+                                        <Star
+                                            key={star}
+                                            className={`w-6 h-6`} // adjust size as needed
+                                            fill={star <= Number(feedback.rate) ? 'yellow' : 'none'}
+                                            strokeWidth={1.5}
+                                            stroke="currentColor"
+                                        />
+                                    ))}
+                                </div>
                                 <p className="text-xs text-gray-500">
                                     {new Date(feedback.created_at).toLocaleDateString()}
                                 </p>

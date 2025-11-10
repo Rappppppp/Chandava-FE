@@ -11,6 +11,7 @@ import { AxiosError } from "axios"
 import Spinner from "@components/Spinner"
 import ScrollToTop from "@components/ScrollToTop"
 import axios from "axios"
+import { ArrowLeft } from "lucide-react"
 
 
 const LoginPage = () => {
@@ -65,7 +66,7 @@ const LoginPage = () => {
         <div className="relative h-screen w-screen flex flex-col lg:flex-row bg-black">
             <ScrollToTop />
             <div
-                className="fixed inset-0 bg-black brightness-50"
+                className="fixed inset-0 bg-black brightness-90"
                 style={{
                     backgroundImage: `url(${AuthBackground})`,
                     backgroundSize: "cover",
@@ -80,9 +81,14 @@ const LoginPage = () => {
                 <p className="text-lg lg:text-2xl">your gateway to relaxation</p>
             </div>
 
-            <div className="relative z-10 text-white  flex-1 flex lg:items-center justify-center px-10  lg:px-30 py-10 lg:py-20 backdrop-blur-sm">
-                <form className="w-full lg:border border-white/30 lg:rounded-2xl lg:p-10" autoComplete="off" onSubmit={handleSubmit}>
-                    <h1 className="text-xl lg:text-2xl font-bold mb-3">Log In. Relax. Enjoy.</h1>
+            <div className="relative z-10 text-white  flex-1 flex lg:items-center justify-center px-10  lg:px-30 pb-10 lg:pb-0 lg:py-20">
+                <form className="p-4 backdrop-blur-sm bg-primary/15 w-full lg:border border-white/30 rounded-2xl lg:p-10" autoComplete="off" onSubmit={handleSubmit}>
+
+                    <div className="flex items-center w-fit gap-3">
+                        <ArrowLeft className="w-7 h-7 -ml-1 hover:scale-120 transition-all text-white cursor-pointer"
+                        onClick={() => navigate("/")} />
+                        <h1 className="text-xl lg:text-2xl font-bold">Login</h1>
+                    </div>
                     <p className="mb-5">Secure your stay in just a few clicks!</p>
 
 
@@ -116,7 +122,7 @@ const LoginPage = () => {
                     </div>
 
                     <div className="mt-5 text-center">
-                        <Link to="/registration" className="underline cursor-pointer">Don't have an account? Click here.</Link>
+                        <Link to="/registration" className="underline cursor-pointer">Don't have an account?</Link>
                     </div>
 
                     <div className="mt-3 text-center">

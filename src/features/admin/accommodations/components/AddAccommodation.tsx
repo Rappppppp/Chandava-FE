@@ -172,7 +172,7 @@ const AddAccommodation = ({ inclusions, roomTypes, defaultValues, action = "add"
             <Input
                 name="day_night_tour_price"
                 label="Day/Night tour price"
-                placeholder="Day/Night tour price"
+                placeholder="Enter Day/Night tour price"
                 value={values.day_night_tour_price.value}
                 onChange={handleChange}
                 error={errors.day_night_tour_price}

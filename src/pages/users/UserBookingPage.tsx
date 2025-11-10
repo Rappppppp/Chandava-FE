@@ -12,24 +12,7 @@ import { MessageService } from "@services/messageService";
 import { useNavigate } from "react-router-dom";
 import { FileInput } from "@components/elements";
 import { useInput } from "@hooks/useInput";
-
-
-
-
-const getStatusColor = (status: MyBooking["status"]) => {
-    switch (status) {
-        case "completed":
-            return "bg-green-100 text-green-800";
-        case "pending":
-            return "bg-yellow-100 text-yellow-800";
-        case "cancelled":
-            return "bg-red-100 text-red-800";
-        case "confirmed":
-            return "bg-blue-100 text-blue-800"; // You can change the color if you prefer
-        default:
-            return "bg-gray-100 text-gray-800";
-    }
-};
+import { getStatusColor } from "@helpers/index";
 
 
 const UserBookingPage = () => {
@@ -133,19 +116,44 @@ const UserBookingPage = () => {
         {
             label: "Action",
             key: "room_id",
-            render: (value, row) =>
-                row.status === "cancelled" ? (
-                    <span className="text-sm text-gray-500">No Action Required</span>
-                ) : (
-                    <button
-                        onClick={() => handleClickWriteReview(value as MyBooking["room_id"])}
-                        className="text-sm underline underline-offset-2 text-blue-500 cursor-pointer"
-                    >
-                        Write a Review
-                    </button>
-                ),
-        }
-
+            render: (value, row) => {
+                if (row.status === 'completed' && row.feedback?.rate !== null) {
+                    return (
+                        <div className="flex space-x-1">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <Star
+                                    key={star}
+                                    className={`w-6 h-6`} // adjust size as needed
+                                    fill={star <= row.feedback.rate ? 'yellow' : 'none'}
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                />
+                            ))}
+                        </div>
+                    );
+                } else if (row.status === 'cancelled') {
+                    return <span className="text-sm text-gray-500">No Action Required</span>;
+                } else {
+                    return (
+                        <button
+                            onClick={() => handleClickWriteReview(value as MyBooking["room_id"])}
+                            className="text-sm underline underline-offset-2 text-blue-500 cursor-pointer"
+                        >
+                            Write a Review
+                        </button>
+                    );
+                }
+            }
+        },
+        {
+            label: "Comment",
+            key: "feedback",
+            render: (_, row) => (
+                <span className={`px-2 py-1 rounded-full text-xs font-semibold`}>
+                    {row.feedback?.comment}
+                </span>
+            ),
+        },
     ];
 
     const handleClickWriteReview = async (id: number) => {
@@ -292,7 +300,7 @@ const UserBookingPage = () => {
                             onClick={createConvo}
                             className="flex items-center justify-center gap-2">
                             <Icon name="MessageCircle" size={30} color="#387A57" />
-                            <p>Chat with the stuff</p>
+                            <p>Chat with the staff</p>
                         </div>
 
                         <div

@@ -95,7 +95,7 @@ const Rooms = () => {
     const fetchData = useCallback(async () => {
         try {
             setLoading(true)
-            const res = await api.get("/rooms?is_deleted[eq]=0");
+            const res = await api.get("/rooms?deleted_at[eq]=0");
             console.log(res.data.data)
             setRooms(res.data.data)
             // setInquiries(res.data)

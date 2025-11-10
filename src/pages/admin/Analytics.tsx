@@ -177,17 +177,19 @@ const Analytics = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <MetricCard
                         title="Daily Sales"
-                        value={`₱${analyticsData.sales.daily.toLocaleString()}`}
+                        value={new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', minimumFractionDigits: 2 }).format(analyticsData.sales.daily)}
                         icon={<PhilippinePeso className="w-6 h-6 text-green-600" />}
                     />
+
                     <MetricCard
                         title="Weekly Sales"
-                        value={`₱${analyticsData.sales.weekly.toLocaleString()}`}
+                        value={new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', minimumFractionDigits: 2 }).format(analyticsData.sales.weekly)}
                         icon={<PhilippinePeso className="w-6 h-6 text-green-600" />}
                     />
+
                     <MetricCard
                         title="Monthly Sales"
-                        value={`₱${analyticsData.sales.monthly.toLocaleString()}`}
+                        value={new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', minimumFractionDigits: 2 }).format(analyticsData.sales.monthly)}
                         icon={<PhilippinePeso className="w-6 h-6 text-green-600" />}
                     />
                 </div>

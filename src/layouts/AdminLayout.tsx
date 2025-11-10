@@ -8,40 +8,42 @@ import { formatTitleCase } from "@utils/stringFormatter";
 import { Link } from "react-router-dom";
 import { ConfirmModal } from "@components/Modal";
 import { useAuth } from "@contexts/AuthContext";
-import {  Bell, User } from "lucide-react"
+import { Bell, User } from "lucide-react"
 
 interface SidebarItemProps {
     path: string;
     name: string;
     icon: keyof typeof icons;
     isActive: boolean;
+    useBottomSeparator?: boolean;
 }
 
-const SidebarItem = ({ name, icon, isActive, path }: SidebarItemProps) => (
+const SidebarItem = ({ name, icon, isActive, path, useBottomSeparator }: SidebarItemProps) => (
     <li>
-        <Link to={`/admin/${path}`}
+        <Link
+            to={`/admin/${path}`}
             className={`flex w-full items-center rounded-md px-4 py-2 text-sm ${isActive ? "bg-primary text-white" : "text-black hover:bg-white/10"
                 }`}
         >
             <Icon name={icon} size={20} color={isActive ? "#fff" : "#222222"} />
             <p className="ml-3">{name}</p>
         </Link>
+
+        {useBottomSeparator && <hr className="border-t border-gray-300 my-2 w-full" />}
     </li>
 );
 
-const navigation: { name: string; icon: keyof typeof icons; path: string }[] = [
-    { name: "Dashboard", icon: "House", path: "dashboard" },
-    { name: "Manage Accommodations", icon: "Building2", path: "manage-accommodations" },
+
+const navigation: { name: string; icon: keyof typeof icons; path: string, useBottomSeparator?: boolean }[] = [
+    { name: "Dashboard", icon: "House", path: "dashboard", useBottomSeparator: true },
     { name: "Accommodations", icon: "House", path: "accommodations" },
+    { name: "Manage Accommodations", icon: "Building2", path: "manage-accommodations" },
     { name: "Bookings", icon: "Calendar", path: "bookings" },
     { name: "Change Schedule Requests", icon: "Settings2", path: "change-schedule" },
     { name: "Customers", icon: "Users", path: "customers" },
     { name: "Inquiries", icon: "MessagesSquare", path: "inquiries" },
     { name: "Feedbacks", icon: "Laugh", path: "feedbacks" },
     { name: "Analytics", icon: "ChartArea", path: "analytics" },
-
-
-
     { name: "Messages", icon: "MessageSquare", path: "messages" },
     // { name: "Settings", icon: "Settings", path: "settings" },
 ];
@@ -130,15 +132,19 @@ const AdminLayout = () => {
                                     className="pl-10 pr-4 py-2 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                                 />
                             </div> */}
-                            <button className="relative p-2 rounded-full hover:bg-gray-100">
+                            {/* <button className="relative p-2 rounded-full hover:bg-gray-100">
                                 <Bell className="h-5 w-5 text-gray-600" />
                                 <span className="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full"></span>
-                            </button>
+                            </button> */}
                             <div className="flex items-center gap-2">
-                                <div className="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center">
-                                    <User className="h-4 w-4 text-green-600" />
-                                </div>
-                                <span className="text-sm font-medium text-gray-700">Admin</span>
+                                <span className="text-sm font-medium text-gray-700">
+                                    {(() => {
+                                        const hour = new Date().getHours();
+                                        if (hour < 12) return "Good Morning, ";
+                                        if (hour < 18) return "Good Afternoon, ";
+                                        return "Good Evening, ";
+                                    })()} <span><strong>Admin</strong>! 😊</span>
+                                </span>
                             </div>
                         </div>
                     </header>

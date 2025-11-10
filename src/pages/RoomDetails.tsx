@@ -65,7 +65,7 @@ const RoomDetails = () => {
 
                     {accommodation.avg_rating ? (<>
                         <h1 className="text-[5rem]/20 font-bold text-secondary">{accommodation.avg_rating}</h1>
-                        <p >Base on {accommodation.feedbacks.length} feedbacks</p>
+                        <p >Based on {accommodation.feedbacks.length} feedbacks</p>
                     </>) : "No feedbacks yet"}
                 </div>
 
