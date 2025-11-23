@@ -74,7 +74,7 @@ const Feedbacks = () => {
             toast.success("Feedback submitted successfully");
             fetchData();
         } catch (error) {
-            console.log(error);
+            console.error(error);
             toast.error("Something went wrong. Please try again.")
 
         } finally {
@@ -93,7 +93,7 @@ const Feedbacks = () => {
             setFeedbacks(res.data)
         } catch (error) {
             if (error instanceof AxiosError) {
-                console.log(error.response?.data.message)
+                console.error(error.response?.data.message)
             }
 
         } finally {

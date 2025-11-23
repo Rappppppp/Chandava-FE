@@ -14,11 +14,11 @@ const Feedback = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const response = await api.get("/feedbacks");
-                console.log(response.data);
+                const response = await api.get("/homepage/feedbacks");
+                // console.log(response.data);
                 setFeedbacks(response.data);
             } catch (error) {
-                console.log(error);
+                console.error(error);
             } finally {
                 setLoading(false);
             }
@@ -43,6 +43,7 @@ const Feedback = () => {
                                 name={feedback.user.name}
                                 date={new Date(feedback.created_at).toLocaleDateString()}
                                 message={feedback.comment}
+                                rate={feedback.rate}
                             />
                         ))
                     }

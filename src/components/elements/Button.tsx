@@ -1,3 +1,5 @@
+import DefaultLoader from "../loaders/DefaultLoader";
+
 interface ButtonProps {
     type: "submit" | "button";
     loading: boolean;
@@ -13,7 +15,7 @@ const Button = ({ type, loading, onClick, label }: ButtonProps) => {
             onClick={onClick}
             disabled={loading}
             className="px-4 py-2 rounded-lg bg-primary hover:bg-primary/90 transition-all duration-300 text-white">
-            {loading ? "Loading..." : label}
+            {loading ? <DefaultLoader/> : label}
         </button>
     );
 }

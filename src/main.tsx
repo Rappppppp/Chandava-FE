@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import { router } from "./router";
 import './index.css'
 import { AuthProvider } from "@contexts/AuthContext";
+import HamsterLoader from "./components/loaders/HamsterLoader";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -13,7 +14,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       reverseOrder={false}
     />
     <AuthProvider>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>
+        <HamsterLoader />
+      </div>}>
         <RouterProvider router={router} />
       </Suspense>
     </AuthProvider>

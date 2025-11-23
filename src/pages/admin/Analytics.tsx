@@ -1,6 +1,7 @@
 import { Tent, PhilippinePeso, Calendar, Star, TrendingUp, TrendingDown } from "lucide-react"
 import { useState, useEffect, useMemo } from "react";
 import api, { AxiosError } from "@services/api";
+import DefaultLoader from "@components/loaders/DefaultLoader";
 
 interface MetricCardProps {
     title: string
@@ -120,7 +121,7 @@ const Analytics = () => {
                 }));
             } catch (error) {
                 if (error instanceof AxiosError) {
-                    console.log(error.response?.data.message);
+                    console.error(error.response?.data.message);
                 }
             } finally {
                 setLoading(false);
@@ -144,7 +145,7 @@ const Analytics = () => {
     }, [analyticsData]);
 
 
-    if (loading) return "Loading..."
+    if (loading) return <DefaultLoader />
     return (
         <main className="p-6 space-y-8">
             {/* Campsite Availability */}

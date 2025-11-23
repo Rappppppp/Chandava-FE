@@ -8,19 +8,17 @@ import {
     Clock,
 } from "lucide-react"
 
-
-
 import { useParams, Link } from "react-router-dom";
 import { useAuth } from "@contexts/AuthContext";
 import { useMessaging } from "@hooks/useMessaging";
-
+import DefaultLoader from "@components/loaders/DefaultLoader";
 
 const UserMessagesPage = () => {
     const { user, loading: authLoading } = useAuth();
     const { convoId } = useParams();
 
 
-    if (authLoading) return "Loading..."
+    if (authLoading) return <DefaultLoader />
 
     const { messageDivRef, conversationList, messages, conversationFetching, title, messageLoading, handleSendMessage, sendingMessage, message, setMessage } = useMessaging(user?.id, convoId);
     return (
@@ -34,7 +32,7 @@ const UserMessagesPage = () => {
                 <div className="flex-1 overflow-y-auto">
                     {/* Contact List */}
                     {
-                        conversationFetching ? "Loading..." : (
+                        conversationFetching ? <DefaultLoader /> : (
                             conversationList.map((contact) => (
                                 <Link to={`/users/messages/${contact.id}`}
                                     key={contact.id}

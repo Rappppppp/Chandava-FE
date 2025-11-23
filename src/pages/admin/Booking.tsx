@@ -67,7 +67,7 @@ const Booking = () => {
             setMyBookings(res.data.data)
         } catch (error) {
             if (error instanceof AxiosError) {
-                console.log(error.response?.data.message)
+                console.error(error.response?.data.message)
             }
 
         } finally {
@@ -82,7 +82,7 @@ const Booking = () => {
     const handleViewDetails = async (row: MyBooking) => {
         setBookingDetailsModal(true);
         setSelectedBooking(row);
-        console.log(row)
+        // console.log(row)
     }
 
 

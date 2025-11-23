@@ -13,7 +13,7 @@ import { ConfirmModal } from "@components/Modal";
 const navLinks = [
     { label: "Home", link: "home" },
     { label: "Bookings", link: "bookings" },
-    { label: "My Requests", link: "my-requests" },
+    { label: "Requests", link: "my-requests" },
     { label: "Messages", link: "messages" },
 
 
@@ -119,9 +119,6 @@ const AuthButtons = ({ first_name, setOpenLogoutModal }: { first_name?: string, 
             {({ open }) => (
                 <>
                     <PopoverButton className=" gap-3 justify-center items-center flex cursor-pointer focus:outline-none focus:ring-0 active:scale-90 transition-all duration-500">
-                        <div className="aspect-square w-10 h-10 rounded-full bg-primary">
-                            <img src={UserDefault} alt="user-default" className="w-full h-full object-cover" />
-                        </div>
                         <div className="flex items-center gap-1">
                             <p className="">Welcome, {first_name}</p>
                             <div className="group-data-[open]:rotate-180 transition-all duration-500 ease-in-out">

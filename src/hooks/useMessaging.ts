@@ -20,7 +20,7 @@ export const useMessaging = (userId: string | number, convoId?: string | number)
         }
     }, [convoId, conversationList])
 
-    console.log(isAlreadyFetched.current)
+    // console.log(isAlreadyFetched.current)
 
     // useEffect(() => {
     //     if (!isAlreadyFetched.current) return;
@@ -49,7 +49,7 @@ export const useMessaging = (userId: string | number, convoId?: string | number)
                 setConversationList(res)
                 isAlreadyFetched.current = true;
             } catch (error) {
-                console.log(error)
+                console.error(error)
             } finally {
                 setConversationFetching(false);
             }
@@ -69,7 +69,7 @@ export const useMessaging = (userId: string | number, convoId?: string | number)
                 messageDivRef.current?.scrollIntoView({ behavior: "smooth" });
             }, 100);
         } catch (error) {
-            console.log(error)
+            console.error(error)
         } finally {
             setMessageLoading(false);
         }
@@ -111,7 +111,7 @@ export const useMessaging = (userId: string | number, convoId?: string | number)
             }, 100);
 
         } catch (error) {
-            console.log(error)
+            console.error(error)
         } finally {
             setSendingMessage(false);
         }

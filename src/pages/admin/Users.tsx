@@ -31,7 +31,7 @@ const Users = () => {
                 setUsers(res.data.data)
             } catch (error) {
                 if (error instanceof AxiosError) {
-                    console.log(error.response?.data.message)
+                    console.error(error.response?.data.message)
                 }
 
             } finally {

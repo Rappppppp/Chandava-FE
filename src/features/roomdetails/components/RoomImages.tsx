@@ -1,9 +1,10 @@
+import DefaultLoader from "@components/loaders/DefaultLoader";
 import { Accomodation } from "@/types/accomodationType";
 
 
 
 const RoomImages = ({ accommodation }: { accommodation: Accomodation }) => {
-    if (!accommodation) return <div>Loading...</div>;
+    if (!accommodation) return <DefaultLoader />;
 
     return (
 

@@ -6,6 +6,7 @@ import type { Accomodation } from "@/types/accomodationType";
 import Icon from "@components/Icon";
 import { useAccommodationData } from "@features/admin/accommodations/hooks/useAccommodationData";
 import AddAccommodation from "@features/admin/accommodations/components/AddAccommodation";
+import DefaultLoader from "@components/loaders/DefaultLoader";
 
 
 const Rooms = () => {
@@ -29,7 +30,7 @@ const Rooms = () => {
 
     const openEditModal = (row: Accomodation) => {
         setIdToEdit(row.id);
-        console.log(row)
+        // console.log(row)
         const defaultValues = {
             room_name: row.room_name,
             accommodation_type_id: row.accommodation_type.id,
@@ -57,7 +58,7 @@ const Rooms = () => {
             fetchData();
             setDeleteModal(false);
         } catch (error) {
-            console.log(error);
+            console.error(error);
         } finally {
             setDeleteLoading(false);
         }
@@ -96,12 +97,12 @@ const Rooms = () => {
         try {
             setLoading(true)
             const res = await api.get("/rooms?deleted_at[eq]=0");
-            console.log(res.data.data)
+            // console.log(res.data.data)
             setRooms(res.data.data)
             // setInquiries(res.data)
         } catch (error) {
             if (error instanceof AxiosError) {
-                console.log(error.response?.data.message)
+                console.error(error.response?.data.message)
             }
 
         } finally {
@@ -113,7 +114,7 @@ const Rooms = () => {
         fetchData()
     }, [fetchData])
 
-    if (loading) return "Loading..."
+    if (loading) return <DefaultLoader />
 
     return (<>
         <Table columns={columns} data={rooms} tableTitle="All Accommodations" />

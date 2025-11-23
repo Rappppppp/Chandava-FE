@@ -4,6 +4,7 @@ import { useInput } from "@hooks/useInput";
 import { AxiosError } from "axios"
 import toast from "react-hot-toast";
 import { ContactUsService } from "@features/landingpage/services/ContactUsService";
+import DefaultLoader from "@components/loaders/DefaultLoader";
 
 const ContactUsForm = () => {
     const [loading, setLoading] = useState(false);
@@ -84,7 +85,7 @@ const ContactUsForm = () => {
                 type="submit"
                 disabled={loading}
                 className="border w-full py-3 text-white bg-primary rounded-lg cursor-pointer hover:bg-primary/90 transition-all">
-                {loading ? "Loading..." : "Submit Form"}
+                {loading ? <DefaultLoader /> : "Submit Form"}
             </button>
 
         </form>

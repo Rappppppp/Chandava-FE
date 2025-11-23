@@ -3,6 +3,7 @@ import api, { AxiosError } from "@services/api";
 import { useEffect, useState, useCallback } from "react";
 import type { ChangeSchedule } from "@/types/changeSchedule";
 import { useAuth } from "@contexts/AuthContext";
+import DefaultLoader from "@components/loaders/DefaultLoader";
 
 
 const UserRequestsPage = () => {
@@ -17,7 +18,7 @@ const UserRequestsPage = () => {
             setRequests(res.data)
         } catch (error) {
             if (error instanceof AxiosError) {
-                console.log(error.response?.data.message)
+                console.error(error.response?.data.message)
             }
 
         } finally {
@@ -37,7 +38,7 @@ const UserRequestsPage = () => {
         { label: "Status", key: "status" },
     ];
 
-    if (loading) return "Loading..."
+    if (loading) return <DefaultLoader />
 
     return (<>
         <Table columns={columns} data={requests} tableTitle="All Requests" />

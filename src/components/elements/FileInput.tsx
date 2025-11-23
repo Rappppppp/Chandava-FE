@@ -109,7 +109,7 @@ const FileInput = ({ label, name, onChange, maxFiles = 1, isForGcash = false, mi
 
             if (isForGcash) {
                 const amount = await extractAndValidateGcash(file);
-                console.log("Valid GCash amount:", amount);
+                // console.log("Valid GCash amount:", amount);
             }
 
             const res = await api.post("/filepond", formData, {

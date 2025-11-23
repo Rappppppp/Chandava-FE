@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { AuthProvider, useAuth } from "@contexts/AuthContext";
+import HamsterLoader from "@components/loaders/HamsterLoader";
 
 
 interface PrivateRouteProps {
@@ -17,7 +18,7 @@ const PrivateRoute = ({ allowedRoles }: PrivateRouteProps) => {
 const ProtectedContent = ({ allowedRoles }: PrivateRouteProps) => {
   const { user, loading } = useAuth();
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <HamsterLoader />;
   if (!user) return <Navigate to="/" replace />;
 
   // ✅ Role-based access control

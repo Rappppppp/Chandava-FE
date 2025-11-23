@@ -40,7 +40,7 @@ const AddAccommodation = ({ inclusions, roomTypes, defaultValues, action = "add"
 
     });
 
-    console.log(values)
+    // console.log(values)
 
     useEffect(() => {
         if (defaultValues) {

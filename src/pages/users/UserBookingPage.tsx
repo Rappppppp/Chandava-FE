@@ -157,7 +157,7 @@ const UserBookingPage = () => {
     ];
 
     const handleClickWriteReview = async (id: number) => {
-        console.log(id)
+        // console.log(id)
         setSelectedRoomIdForReview(id);
         setReviewModal(true);
     }

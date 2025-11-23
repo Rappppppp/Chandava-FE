@@ -4,7 +4,7 @@ import { useAuth } from "@contexts/AuthContext";
 const Unauthorized = () => {
   const navigate = useNavigate();
   const { user, loading } = useAuth();
-  console.log(user);
+  // console.log(user);
   if (loading) return <p>Loading...</p>;
 
 

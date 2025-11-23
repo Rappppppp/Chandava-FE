@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api, { AxiosError } from "@services/api";
 import Table, { Column } from "@components/Table";
 import { Modal } from "@components/Modal";
+import DefaultLoader from "@components/loaders/DefaultLoader";
 
 interface Inquiry {
     id: number,
@@ -59,7 +60,7 @@ const Inquiries = () => {
                 setInquiries(res.data)
             } catch (error) {
                 if (error instanceof AxiosError) {
-                    console.log(error.response?.data.message)
+                    console.error(error.response?.data.message)
                 }
 
             } finally {
@@ -69,7 +70,7 @@ const Inquiries = () => {
         fetchData()
     }, [])
 
-    if (loading) return "Loading..."
+    if (loading) return <DefaultLoader />
 
     return (<>
         <Table columns={columns} data={inquiries} tableTitle="All Inquiries" />

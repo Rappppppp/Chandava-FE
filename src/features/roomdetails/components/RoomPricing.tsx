@@ -8,8 +8,9 @@ import api, { AxiosError } from "@services/api";
 import toast from "react-hot-toast";
 import { useAuth } from "@contexts/AuthContext";
 import PaymentMethod from "@assets/images/payment_method.png"
+import DefaultLoader from "@components/loaders/DefaultLoader";
 const RoomPricing = ({ isAuthPage = false, accommodation }: { isAuthPage: boolean, accommodation: Accomodation }) => {
-  if (!accommodation) return <div>Loading...</div>;
+  if (!accommodation) return <div><DefaultLoader /></div>;
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
@@ -42,7 +43,7 @@ const RoomPricing = ({ isAuthPage = false, accommodation }: { isAuthPage: boolea
 
   const totalPrice = useMemo(() => {
     if (noOfDays && priceMultiplier) {
-      return (noOfDays * priceMultiplier) * Number(accommodation.accommodation_type.max_guests);
+      return (noOfDays * priceMultiplier); //;
     }
   }, [noOfDays, priceMultiplier]);
 
@@ -93,7 +94,7 @@ const RoomPricing = ({ isAuthPage = false, accommodation }: { isAuthPage: boolea
           <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Day or Night Tour</p>
           <div className="flex items-baseline gap-2">
             <span className="text-3xl font-bold text-gray-900">
-              ₱{Number(accommodation.day_night_tour_price) * Number(accommodation.accommodation_type.max_guests)}
+              ₱{Number(accommodation.day_night_tour_price)}
             </span>
             <span className="text-sm text-gray-500">per tour</span>
           </div>
@@ -103,7 +104,7 @@ const RoomPricing = ({ isAuthPage = false, accommodation }: { isAuthPage: boolea
           <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Overnight (22 Hours)</p>
           <div className="flex items-baseline gap-2">
             <span className="text-3xl font-bold text-gray-900">
-              ₱{Number(accommodation.overnight_price) * Number(accommodation.accommodation_type.max_guests)}
+              ₱{Number(accommodation.overnight_price)}
             </span>
             <span className="text-sm text-gray-500">per night</span>
           </div>
