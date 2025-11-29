@@ -55,7 +55,7 @@ export function ReportPreviewModal({ report, isOpen, onClose }: ReportPreviewMod
   setLoading(true)
 
   const isWeekly = Array.isArray(report)
-  const reportType = isWeekly
+  const reportType = report.type.toLowerCase().includes("weekly")
     ? "weekly"
     : report.type.toLowerCase().includes("daily")
       ? "daily"
@@ -79,30 +79,14 @@ export function ReportPreviewModal({ report, isOpen, onClose }: ReportPreviewMod
       },
     })
     .then((res) => {
-      if (isWeekly) {
-        // Flatten all week bookings
-        let allBookings: BookingDetails[] = []
-        let totalBookings = 0
-        let totalCheckIns = 0
-        let totalPayments = 0
 
-        report.forEach((week: any) => {
-          allBookings = allBookings.concat(week.bookings_detail)
-          totalBookings += parseInt(week.bookings_count)
-          totalCheckIns += parseInt(week.checkIns_count)
-          totalPayments += parseFloat(week.payments.replace(/[₱,]/g, ""))
-        })
-
-        setBookings(allBookings)
-        // setSummary({ bookings: totalBookings, checkIns: totalCheckIns, payments: totalPayments })
-      } else {
-        setBookings(res.data)
+        setBookings(res.data.bookings_detail)
         // setSummary({
         //   bookings: report.bookings || 0,
         //   checkIns: report.checkIns || 0,
         //   payments: parseFloat(report.payments?.replace(/[₱,]/g, "") || "0"),
         // })
-      }
+  
     })
     .catch(() => {
       setBookings([])

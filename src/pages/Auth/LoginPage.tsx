@@ -125,9 +125,9 @@ const LoginPage = () => {
                         <Link to="/registration" className="underline cursor-pointer">Don't have an account?</Link>
                     </div>
 
-                    <div className="mt-3 text-center">
+                    {/* <div className="mt-3 text-center">
                         <p className="underline">Forgot password?</p>
-                    </div>
+                    </div> */}
                 </form>
             </div>
         </div>

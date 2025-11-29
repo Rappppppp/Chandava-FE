@@ -10,12 +10,10 @@ import DefaultLoader from "@components/loaders/DefaultLoader";
 
 
 const Rooms = () => {
-
     const {
         roomTypes,
         inclusions
     } = useAccommodationData();
-
 
     const [rooms, setRooms] = useState<Accomodation[]>([]);
     const [loading, setLoading] = useState(false);
@@ -23,7 +21,6 @@ const Rooms = () => {
     const [deleteModal, setDeleteModal] = useState(false);
     const [idToDelete, setIdToDelete] = useState<number | null>(null);
     const [editModal, setEditModal] = useState(false);
-
 
     const [idToEdit, setIdToEdit] = useState<number | null>(null);
     const [editDefaultValues, setEditDefaultValues] = useState<any>(null);

@@ -1,11 +1,11 @@
 import { Calendar, Users, AudioLines as PhilippinePeso, Tent, LucideLoader2 } from "lucide-react"
 import { ReportsTable } from "@features/admin/dashboard/ReportsTable"
-import { CheckInsList } from "@features/admin/dashboard/CheckInsList"
+// import { CheckInsList } from "@features/admin/dashboard/CheckInsList"
 
 import { useEffect, useState } from "react"
 import api, { AxiosError } from "@services/api"
 import { MyBooking } from "@/types/myBooking"
-import { Link } from "react-router-dom"
+// import { Link } from "react-router-dom"
 
 interface CardData {
   total_bookings: number,
@@ -130,9 +130,9 @@ export default function Dashboard() {
         </div>
 
         {/* Check-ins Section */}
-        <div className="space-y-6">
+        {/* <div className="space-y-6">
           <CheckInsList />
-        </div>
+        </div> */}
       </div>
     </main>
   )
