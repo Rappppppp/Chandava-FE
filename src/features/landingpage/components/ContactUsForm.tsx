@@ -5,6 +5,7 @@ import { AxiosError } from "axios"
 import toast from "react-hot-toast";
 import { ContactUsService } from "@features/landingpage/services/ContactUsService";
 import DefaultLoader from "@components/loaders/DefaultLoader";
+import { Loader2 } from "lucide-react";
 
 const ContactUsForm = () => {
     const [loading, setLoading] = useState(false);
@@ -69,7 +70,7 @@ const ContactUsForm = () => {
                 value={values.subject.value}
                 onChange={handleChange}
                 name="subject"
-                placeholder="Subjct"
+                placeholder="Subject"
                 required
             />
 
@@ -84,8 +85,8 @@ const ContactUsForm = () => {
             <button
                 type="submit"
                 disabled={loading}
-                className="border w-full py-3 text-white bg-primary rounded-lg cursor-pointer hover:bg-primary/90 transition-all">
-                {loading ? <DefaultLoader /> : "Submit Form"}
+                className="border w-full py-3 text-white text-center flex justify-center bg-primary rounded-lg cursor-pointer hover:bg-primary/90 transition-all">
+                {loading ? <Loader2 className="animate-spin w-5 h-5" /> : "Send"}
             </button>
 
         </form>
