@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Icon from "@components/Icon";
 import { useAuth } from "@contexts/AuthContext";
-import UserDefault from "@assets/images/user-default.jpg"
+// import UserDefault from "@assets/images/user-default.jpg"
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ConfirmModal } from "@components/Modal";

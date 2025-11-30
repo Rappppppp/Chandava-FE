@@ -1,4 +1,4 @@
-import Paragraph from "@components/Paragraph";
+// import Paragraph from "@components/Paragraph";
 import { Accomodation } from "@/types/accomodationType";
 import { useState, useMemo } from "react";
 import { Modal } from "@components/Modal";

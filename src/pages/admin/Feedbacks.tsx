@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import api, { AxiosError } from "@services/api";
-import Icon from "@components/Icon";
+// import Icon from "@components/Icon";
 import toast from "react-hot-toast";
 import { Star } from "lucide-react";
 interface User {

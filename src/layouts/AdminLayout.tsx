@@ -8,7 +8,7 @@ import { formatTitleCase } from "@utils/stringFormatter";
 import { Link } from "react-router-dom";
 import { ConfirmModal } from "@components/Modal";
 import { useAuth } from "@contexts/AuthContext";
-import { Bell, User } from "lucide-react"
+// import { Bell, User } from "lucide-react"
 
 interface SidebarItemProps {
     path: string;

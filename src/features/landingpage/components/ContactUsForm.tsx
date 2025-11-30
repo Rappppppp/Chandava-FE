@@ -4,7 +4,7 @@ import { useInput } from "@hooks/useInput";
 import { AxiosError } from "axios"
 import toast from "react-hot-toast";
 import { ContactUsService } from "@features/landingpage/services/ContactUsService";
-import DefaultLoader from "@components/loaders/DefaultLoader";
+// import DefaultLoader from "@components/loaders/DefaultLoader";
 import { Loader2 } from "lucide-react";
 
 const ContactUsForm = () => {
