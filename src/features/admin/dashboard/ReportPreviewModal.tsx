@@ -210,7 +210,7 @@ export function ReportPreviewModal({ report, isOpen, onClose }: ReportPreviewMod
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-green-600 mb-2">{report.checkIns.toLocaleString()}</div>
-                  <p className="text-sm text-gray-600">Check-ins</p>
+                  <p className="text-sm text-gray-600">Completed Bookings</p>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-purple-600 mb-2">{report.payments}</div>
