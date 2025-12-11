@@ -10,7 +10,7 @@ import toast from "react-hot-toast"
 import { AxiosError } from "axios"
 import Spinner from "@components/Spinner"
 import ScrollToTop from "@components/ScrollToTop"
-import axios from "axios"
+// import axios from "axios"
 import { ArrowLeft } from "lucide-react"
 
 
@@ -29,7 +29,6 @@ const LoginPage = () => {
 
         try {
             setIsLoading(true)
-
             const response = await AuthService.login(values.email.value, values.password.value);
             if(response.user.role === "admin"){
                 navigate("/admin/dashboard")
