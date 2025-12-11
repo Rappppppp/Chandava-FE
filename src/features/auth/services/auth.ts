@@ -29,19 +29,25 @@ export const login = async (
       data: { email, password },
     });
 
+    const token = response.data.token; // <-- matches backend
+    if (token) {
+      localStorage.setItem("token", token); // store JWT
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`; // attach for future requests
+    }
+
     return {
       success: true,
-      response: response.data, // ✅ Extracts `{ token, role }`
+      response: response.data,
     };
   } catch (error) {
     const axiosError = error as AxiosError<ApiResponse<unknown>>;
-
     return {
       success: false,
       message: axiosError.response?.data?.message || "Login failed",
     };
   }
 };
+
 
 
 export const register = async (formData: Record<string, { value: any }>): Promise<SuccessResponse<RegisterResponse> | ErrorResponse> => {

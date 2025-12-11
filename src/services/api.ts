@@ -1,33 +1,39 @@
 // /src/services/api.ts
-import { getCookie } from "@helpers/cookieHelper";
-import axios, {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-  AxiosError,
-} from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 
+// Retrieve stored JWT token
+const getToken = () => localStorage.getItem("token");
 
+// Axios instance
 const api: AxiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_URL}/${import.meta.env.VITE_API_VERSION}`,
-  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
-  xsrfCookieName: "XSRF-TOKEN",       // Laravel default
-  xsrfHeaderName: "X-XSRF-TOKEN",     // Laravel expects this header
 });
 
+// Attach JWT token automatically
 api.interceptors.request.use((config) => {
-  const token = getCookie("XSRF-TOKEN");
+  const token = localStorage.getItem("token");
   if (token && config.headers) {
-    config.headers["X-XSRF-TOKEN"] = decodeURIComponent(token);
+    config.headers["Authorization"] = `Bearer ${token}`;
   }
   return config;
 });
 
+// Optional: handle unauthorized responses globally
+api.interceptors.response.use(
+  (response) => response,
+  (error: AxiosError) => {
+    if (error.response?.status === 401) {
+      // Optional: log out user or redirect to login
+      localStorage.removeItem("token");
+    }
+    return Promise.reject(error);
+  }
+);
 
-
+// Generic request wrapper
 const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
   try {
     const response: AxiosResponse<T> = await api.request<T>(config);
@@ -38,6 +44,5 @@ const request = async <T>(config: AxiosRequestConfig): Promise<T> => {
   }
 };
 
-
-export { request, AxiosError };
+export { request, AxiosError, getToken };
 export default api;

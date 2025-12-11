@@ -30,10 +30,6 @@ const LoginPage = () => {
         try {
             setIsLoading(true)
 
-            await axios.get(`${import.meta.env.VITE_BE_BASE_URL}/sanctum/csrf-cookie`, {
-                withCredentials: true,
-            });
-
             const response = await AuthService.login(values.email.value, values.password.value);
             if(response.user.role === "admin"){
                 navigate("/admin/dashboard")
