@@ -124,7 +124,7 @@ const UserBookingPage = () => {
                                 <Star
                                     key={star}
                                     className={`w-6 h-6`} // adjust size as needed
-                                    fill={star <= row.feedback.rate ? 'yellow' : 'none'}
+                                    fill={star <= row.feedback?.rate ? 'yellow' : 'none'}
                                     strokeWidth={1.5}
                                     stroke="currentColor"
                                 />
