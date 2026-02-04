@@ -2,7 +2,6 @@
 
 import React from "react"
 import Title from "@components/Title";
-import { useLocation } from "react-router-dom";
 import AddUserDialog from "@features/landingpage/components/AddUserDialog";
 
 export type Column<T> = {
@@ -37,7 +36,6 @@ const Table = <T,>({
     onUserAdded,
 }: TableProps<T>) => {
     const totalPages = Math.ceil(totalItems / (perPage || 1));
-    const { pathname } = useLocation();
 
     return (
         /* Outer Card - ensures the component doesn't exceed screen width */
