@@ -6,6 +6,7 @@ import { useEffect, useState, useCallback } from "react";
 import { Modal } from "@components/Modal";
 import toast from "react-hot-toast";
 import { getStatusColor } from "@helpers/index";
+import ManualBookingDialog from "./ManualBookingDialog";
 
 const Booking = () => {
     const [myBookings, setMyBookings] = useState<MyBooking[]>([]);
@@ -151,6 +152,9 @@ const Booking = () => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </div>
+            
+            <ManualBookingDialog />
+
 
             {
                 loading ? <>
@@ -227,13 +231,14 @@ const Booking = () => {
             <Modal isOpen={bookingDetailsModal} setIsOpen={setBookingDetailsModal} className="max-w-3xl">
                 {selectedBooking && (
                     <div className="space-y-4">
-                        <h2 className="text-2xl font-semibold">{selectedBooking.user.first_name} {selectedBooking.user.last_name}</h2>
+                        <h2 className="text-2xl font-semibold">{selectedBooking.user?.first_name} {selectedBooking.user?.last_name}</h2>
                         <p>Status: <span className={`px-2 py-1 rounded-full ${getStatusColor(selectedBooking.status)}`}>{selectedBooking.status}</span></p>
                         <p>Room: {selectedBooking.room.room_name}</p>
                         <p>Check-In: {selectedBooking.check_in}</p>
                         <p>Check-Out: {selectedBooking.check_out}</p>
-                        <p>Guests: {selectedBooking.no_guests}</p>
+                        <p>Guests: {selectedBooking.room.accommodation_type.max_guests}</p>
                         <p>Total Price: ₱{selectedBooking.total_price}</p>
+                        <p>Admin Notes: {selectedBooking.admin_note}</p>
                     </div>
                 )}
             </Modal>

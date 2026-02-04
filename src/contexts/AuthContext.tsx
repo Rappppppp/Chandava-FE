@@ -1,8 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { AuthService } from "@features/auth/services/AuthService";
-import toast from "react-hot-toast";
-
-
 
 // Define User type
 interface User {

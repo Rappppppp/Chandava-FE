@@ -1,9 +1,9 @@
 import { FC } from "react";
 import Icon from "@components/Icon";
 import StaticDB from "@config/static_db/StaticDB";
-import Title from "@components/Title";
-import Paragraph from "@components/Paragraph";
-import ContactUsForm from "@features/landingpage/components/ContactUsForm";
+// import Title from "@components/Title";
+// import Paragraph from "@components/Paragraph";
+// import ContactUsForm from "@features/landingpage/components/ContactUsForm";
 
 const MapStyle = {
     width: "100%",

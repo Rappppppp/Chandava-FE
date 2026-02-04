@@ -274,7 +274,7 @@ const UserBookingPage = () => {
 
                         <div>
                             <p className="text-sm font-bold text-primary">Number of Guests</p>
-                            <p className="text-gray-600">{activeBooking.no_guests} guests</p>
+                            <p className="text-gray-600">{activeBooking.room.accommodation_type.max_guests} guests</p>
                         </div>
 
                         <div>
@@ -394,7 +394,7 @@ const UserBookingPage = () => {
 
                         <div className="flex justify-between">
                             <span className="font-medium">Guests:</span>
-                            <span>{activeBooking.no_guests}</span>
+                            <span>{activeBooking.room.accommodation_type.max_guests}</span>
                         </div>
 
                         <div className="flex justify-between">

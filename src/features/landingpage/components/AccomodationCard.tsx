@@ -20,7 +20,6 @@ const AccommodationCard = ({
   accommodationTypeName,
   dayNightTourPrice,
   maxGuests,
-  isAvailable,
   roomInclusions,
   roomImage,
 }: AccommodationCardProps) => {

@@ -3,6 +3,7 @@
 import React from "react"
 
 import Title from "@components/Title";
+import { useLocation } from "react-router-dom";
 import AddUserDialog from "@features/landingpage/components/AddUserDialog";
 
 export type Column<T> = {
@@ -47,11 +48,13 @@ const Table = <T,>({
     const handlePrev = () => onPageChange?.(Math.max(1, currentPage - 1));
     const handleNext = () => onPageChange?.(Math.min(totalPages, currentPage + 1));
 
+    const { pathname } = useLocation();
+
     return (
         <div className="w-full p-4 bg-white rounded-2xl shadow-md">
             <div className="flex items-center justify-between mb-4">
                 <Title title={tableTitle} />
-                <AddUserDialog onUserAdded={onUserAdded} />
+                {pathname.includes("customers") && <AddUserDialog onUserAdded={onUserAdded} />}
             </div>
 
             <div className="overflow-x-auto mt-4">
