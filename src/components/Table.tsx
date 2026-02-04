@@ -1,7 +1,6 @@
 'use client';
 
 import React from "react"
-
 import Title from "@components/Title";
 import { useLocation } from "react-router-dom";
 import AddUserDialog from "@features/landingpage/components/AddUserDialog";
@@ -13,21 +12,18 @@ export type Column<T> = {
 };
 
 type TableProps<T> = {
-  tableTitle: string;
-  columns: Column<T>[];
-  data: T[];
-  itemsPerPage?: number;
-
-  // Optional pagination
-  currentPage?: number;
-  perPage?: number;
-  totalItems?: number;
-  onPageChange?: (page: number) => void;
-  loading?: boolean;
-  showAddUserButton?: boolean;
-  onUserAdded?: (user: any) => void;
+    tableTitle: string;
+    columns: Column<T>[];
+    data: T[];
+    itemsPerPage?: number;
+    currentPage?: number;
+    perPage?: number;
+    totalItems?: number;
+    onPageChange?: (page: number) => void;
+    loading?: boolean;
+    showAddUserButton?: boolean;
+    onUserAdded?: (user: any) => void;
 };
-
 
 const Table = <T,>({
     columns,
@@ -40,31 +36,26 @@ const Table = <T,>({
     loading = false,
     onUserAdded,
 }: TableProps<T>) => {
-    const totalPages = Math.ceil(totalItems / perPage);
-
-    const handleFirst = () => onPageChange?.(1);
-    const handleLast = () => onPageChange?.(totalPages);
-
-    const handlePrev = () => onPageChange?.(Math.max(1, currentPage - 1));
-    const handleNext = () => onPageChange?.(Math.min(totalPages, currentPage + 1));
-
+    const totalPages = Math.ceil(totalItems / (perPage || 1));
     const { pathname } = useLocation();
 
     return (
-        <div className="w-full p-4 bg-white rounded-2xl shadow-md">
-            <div className="flex items-center justify-between mb-4">
+        /* Outer Card - ensures the component doesn't exceed screen width */
+        <div className="w-full max-w-full p-4 bg-white rounded-2xl shadow-md">
+            <div className="flex flex-col w-fit mb-4">
                 <Title title={tableTitle} />
-                {pathname.includes("customers") && <AddUserDialog onUserAdded={onUserAdded} />}
+                {tableTitle.includes("All Users") && <AddUserDialog onUserAdded={onUserAdded} />}
             </div>
 
-            <div className="overflow-x-auto mt-4">
-                <table className="w-full border-collapse">
+            {/* THE SCROLL BOX: Added 'inline-block' and 'min-w-full' to ensure it triggers scroll */}
+            <div className="overflow-x-auto block w-full border border-gray-100 rounded-lg">
+                <table className="min-w-full divide-y divide-gray-200" style={{ minWidth: '800px', tableLayout: 'auto' }}>
                     <thead>
                         <tr className="bg-gray-50">
                             {columns.map((column) => (
                                 <th
                                     key={String(column.key)}
-                                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
                                 >
                                     {column.label}
                                 </th>
@@ -82,8 +73,11 @@ const Table = <T,>({
                             data.map((row, rowIndex) => (
                                 <tr key={rowIndex} className="hover:bg-gray-50 transition-colors">
                                     {columns.map((col) => (
-                                        <td key={String(col.key)} className="px-6 py-4 whitespace-nowrap">
-                                            {col.render ? col.render(row[col.key], row) : <span className="text-sm text-gray-700">{String(row[col.key])}</span>}
+                                        <td
+                                            key={String(col.key)}
+                                            className="px-6 py-4 whitespace-nowrap text-sm text-gray-700"
+                                        >
+                                            {col.render ? col.render(row[col.key], row) : String(row[col.key])}
                                         </td>
                                     ))}
                                 </tr>
@@ -99,46 +93,19 @@ const Table = <T,>({
                 </table>
             </div>
 
+            {/* Pagination */}
             {totalPages > 1 && onPageChange && (
-                <div className="flex items-center justify-between border-t border-gray-200 px-4 py-3 mt-4">
+                <div className="flex flex-col sm:flex-row items-center justify-between border-t border-gray-200 px-4 py-3 mt-4 gap-4">
                     <div className="flex gap-2">
-                        <button
-                            onClick={handleFirst}
-                            disabled={currentPage === 1 || loading}
-                            className="px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:text-gray-300 disabled:cursor-not-allowed"
-                        >
-                            First
-                        </button>
-                        <button
-                            onClick={handlePrev}
-                            disabled={currentPage === 1 || loading}
-                            className="px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:text-gray-300 disabled:cursor-not-allowed"
-                        >
-                            Previous
-                        </button>
+                        <button onClick={() => onPageChange(1)} disabled={currentPage === 1 || loading} className="px-3 py-2 text-xs border rounded-md disabled:opacity-50">First</button>
+                        <button onClick={() => onPageChange(Math.max(1, currentPage - 1))} disabled={currentPage === 1 || loading} className="px-3 py-2 text-xs border rounded-md disabled:opacity-50">Prev</button>
                     </div>
-
-                    <p className="text-sm text-gray-700">
-                        Showing <span className="font-medium">{(currentPage - 1) * perPage + 1}</span> to{" "}
-                        <span className="font-medium">{Math.min(currentPage * perPage, totalItems)}</span> of{" "}
-                        <span className="font-medium">{totalItems}</span> results
+                    <p className="text-sm text-gray-600">
+                        Page {currentPage} of {totalPages}
                     </p>
-
                     <div className="flex gap-2">
-                        <button
-                            onClick={handleNext}
-                            disabled={currentPage === totalPages || loading}
-                            className="px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:text-gray-300 disabled:cursor-not-allowed"
-                        >
-                            Next
-                        </button>
-                        <button
-                            onClick={handleLast}
-                            disabled={currentPage === totalPages || loading}
-                            className="px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:text-gray-300 disabled:cursor-not-allowed"
-                        >
-                            Last
-                        </button>
+                        <button onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))} disabled={currentPage === totalPages || loading} className="px-3 py-2 text-xs border rounded-md disabled:opacity-50">Next</button>
+                        <button onClick={() => onPageChange(totalPages)} disabled={currentPage === totalPages || loading} className="px-3 py-2 text-xs border rounded-md disabled:opacity-50">Last</button>
                     </div>
                 </div>
             )}
