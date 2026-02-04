@@ -14,13 +14,13 @@ export default function FloatingChatbot() {
 
   const handleSend = async () => {
     const trimmed = input.trim()
-    if (loading || trimmed.length < 10 || trimmed.length > 50) return
+    if (loading || trimmed.length < 10 || trimmed.length > 500) return
     await sendMessage(trimmed)
     setInput("")
   }
 
   const charCount = input.trim().length
-  const isValidLength = charCount >= 10 && charCount <= 50
+  const isValidLength = charCount >= 10 && charCount <= 500
 
   return (
     <div className="fixed bottom-4 right-4 z-50 sm:bottom-6 sm:right-6">
@@ -137,10 +137,10 @@ export default function FloatingChatbot() {
               {charCount < 10 && charCount > 0 && (
                 <span className="text-amber-500">Minimum 10 characters required</span>
               )}
-              {charCount > 50 && <span className="text-red-500">Maximum 50 characters allowed</span>}
+              {/* {charCount > 50 && <span className="text-red-500">Maximum 50 characters allowed</span>} */}
               {charCount === 0 && "Shift + Enter for new line"}
             </span>
-            <span
+            {/* <span
               className={
                 charCount > 50
                   ? "text-red-500 font-semibold"
@@ -150,7 +150,7 @@ export default function FloatingChatbot() {
               }
             >
               {charCount}/50
-            </span>
+            </span> */}
           </div>
         </div>
       </div>

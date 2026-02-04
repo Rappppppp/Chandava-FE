@@ -1,4 +1,9 @@
+'use client';
+
+import React from "react"
+
 import Title from "@components/Title";
+import AddUserDialog from "@features/landingpage/components/AddUserDialog";
 
 export type Column<T> = {
     label: string;
@@ -18,6 +23,8 @@ type TableProps<T> = {
   totalItems?: number;
   onPageChange?: (page: number) => void;
   loading?: boolean;
+  showAddUserButton?: boolean;
+  onUserAdded?: (user: any) => void;
 };
 
 
@@ -30,6 +37,7 @@ const Table = <T,>({
     totalItems,
     onPageChange,
     loading = false,
+    onUserAdded,
 }: TableProps<T>) => {
     const totalPages = Math.ceil(totalItems / perPage);
 
@@ -41,7 +49,10 @@ const Table = <T,>({
 
     return (
         <div className="w-full p-4 bg-white rounded-2xl shadow-md">
-            <Title title={tableTitle} />
+            <div className="flex items-center justify-between mb-4">
+                <Title title={tableTitle} />
+                <AddUserDialog onUserAdded={onUserAdded} />
+            </div>
 
             <div className="overflow-x-auto mt-4">
                 <table className="w-full border-collapse">

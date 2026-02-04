@@ -50,21 +50,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 
   const logout = async () => {
+    setLogoutLoading(true);
+
     try {
-      setLogoutLoading(true);
-      await AuthService.logout();
-      setUser(null);
-      window.location.href = "/login";
-
-
-
+      await AuthService.logout(); // best effort
     } catch (error) {
-      toast.error("Logout failed");
+      // optional: log silently
     } finally {
+      setUser(null);                 // force local logout
+      window.location.href = "/login";
       setLogoutLoading(false);
     }
-
-
   };
 
   return (

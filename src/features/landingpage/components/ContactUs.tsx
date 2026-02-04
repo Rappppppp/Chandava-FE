@@ -16,28 +16,26 @@ const ContactUs: FC = () => {
 
 
         <div className="flex flex-col-reverse md:flex-row gap-3 md:gap-5" id="Contact Us">
-            <div className="w-full md:w-1/2 ">
+            <div className="w-full">
                 <div className="w-full relative">
-                    <div className="aspect-video w-full bg-primary rounded-4xl overflow-hidden">
-                        <iframe
-                            src={contactUs.mapLink}
-                            width={MapStyle.width}
-                            height={MapStyle.height}
-                            frameBorder={0} // Use number type
-                            style={{ border: 0 }}
-                            allowFullScreen
-                            aria-hidden="false"
-                            tabIndex={0}
-                            title="Humanity First Indonesia"
-                        />
-                    </div>
+                    <iframe
+                        src={contactUs.mapLink}
+                        width={MapStyle.width}
+                        height={MapStyle.height}
+                        frameBorder={0} // Use number type
+                        style={{ border: 0 }}
+                        allowFullScreen
+                        aria-hidden="false"
+                        tabIndex={0}
+                        title="Humanity First Indonesia"
+                    />
                     <div className="mt-5 md:mt-10 ">
 
                         {
                             contactUs.socials.map((social, index) => (
                                 <div key={index} className="mb-3 flex items-center gap-3">
                                     <div className="aspect-square w-[3.75rem] bg-primary rounded-full flex justify-center items-center">
-                                        <Icon name={social.icon} size={30} color="white"  />
+                                        <Icon name={social.icon} size={30} color="white" />
                                     </div>
                                     <div>
                                         <p>{social.name}</p>
@@ -49,17 +47,17 @@ const ContactUs: FC = () => {
                             ))
                         }
 
-                     
+
                     </div>
 
                 </div>
             </div>
 
-            <div className="w-full md:w-1/2 ">
+            {/* <div className="w-full md:w-1/2 ">
                 <Title title="Contact Us" />
                 <Paragraph className="mb-3">Send us a message and we will get back to you as soon as possible.</Paragraph>
                 <ContactUsForm />
-            </div>
+            </div> */}
 
         </div>
 

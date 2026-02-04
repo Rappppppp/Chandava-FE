@@ -9,6 +9,7 @@ interface AccommodationCardProps {
   accommodationTypeName: string
   dayNightTourPrice: string
   roomInclusions: number | RoomInclusions[]
+  isAvailable: boolean
   roomImage: string
   maxGuests: number
 }
@@ -19,6 +20,7 @@ const AccommodationCard = ({
   accommodationTypeName,
   dayNightTourPrice,
   maxGuests,
+  isAvailable,
   roomInclusions,
   roomImage,
 }: AccommodationCardProps) => {
